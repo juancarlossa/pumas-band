@@ -42,6 +42,7 @@ export function Hero() {
             });
         }
     }, [currentVideo]);
+
     return (
         <section id="hero" className="relative w-full overflow-hidden">
             <div className="absolute inset-0">
@@ -49,11 +50,10 @@ export function Hero() {
                     {
                         videos.map((video, index) => (
                             <div
-                                className={`relative overflow-hidden group w-full h-[50vh] rounded-lg shadow-lg ${
-                                    video.cols === 2 ? 'col-span-2' : 
-                                    video.cols === 3 ? 'col-span-3' : 
-                                    video.cols === 4 ? 'col-span-4' : 'col-span-1'
-                                }`}
+                                className={`relative overflow-hidden group w-full h-[50vh] rounded-lg shadow-lg ${video.cols === 2 ? 'col-span-2' :
+                                        video.cols === 3 ? 'col-span-3' :
+                                            video.cols === 4 ? 'col-span-4' : 'col-span-1'
+                                    }`}
                             >
                                 <video
                                     ref={(el) => {
