@@ -1,11 +1,11 @@
 ---
-import Hero from "./Hero.astro";
+import { Hero } from "./Hero";
 import About from "./About.astro";
 import { Services } from "./Services";
 ---
 
 <main class="w-full flex flex-col flex-1 justify-center items-center">
-    <Hero />
+    <Hero client:load />
     <About />
     <Services client:idle />
 </main>

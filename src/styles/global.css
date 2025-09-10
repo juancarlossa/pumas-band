@@ -192,3 +192,11 @@ p {
 		@apply bg-background text-foreground;
 	}
 }
+
+.bg-custom {
+	@apply bg-[#b03b3b];
+}
+
+.text-custom {
+	@apply text-[#b03b3b];
+}
