@@ -8,32 +8,118 @@ const links = [
 ---
 
 <header
-	class="w-full bg-black/50 backdrop-blur-3xl absolute h-fit top-0 left-0 flex justify-between gap-10 items-center p-5 z-50"
+	class="w-full fixed top-0 left-0 z-50 bg-black/50 backdrop-blur-md transition-all duration-300"
 >
-	<div class="text-gray-400 font-light text-3xl leading-tight tracking-wider">
-		<img
-			src="/logo.png"
-			alt="Logo"
-			class="h-18 w-18 object-contain inline-block mr-3"
-		/>
-	</div>
-	<nav class="flex items-center text-sm font-medium border-y-2 z-20">
-		<a
-			href={links[0].href}
-			class="bg-[#c6c4b0] focus:bg-[#c6c4b0] active:bg-[#c6c4b0] text-white px-8 py-2 hover:bg-stone-400 transition-colors"
-		>
-			{links[0].name}
-		</a>
-		{
-			links.slice(1).map((link) => (
-				<a
-					href={link.href}
-					class=" text-slate-600  px-8 py-2 hover:bg-stone-400 hover:text-white transition-colors"
-				>
-					{link.name}
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="flex justify-between items-center h-16 md:h-20">
+			<!-- Logo -->
+			<div class="flex-shrink-0 flex items-center">
+				<a href="#hero" class="flex items-center gap-3">
+					<img
+						src="/logo.png"
+						alt="Puma's Band Logo"
+						class="h-12 w-12 md:h-14 md:w-14 object-contain"
+					/>
+					<span
+						class="text-white text-xl md:text-2xl font-semibold hidden sm:block"
+					>
+						Puma's Band
+					</span>
 				</a>
-			))
-		}
-	</nav>
-	<div></div>
+			</div>
+
+			<!-- Mobile menu button -->
+			<button
+				type="button"
+				class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:text-amber-500"
+				aria-controls="mobile-menu"
+				aria-expanded="false"
+				id="menu-button"
+			>
+				<span class="sr-only">Abrir menú principal</span>
+				<svg
+					class="h-6 w-6"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M4 6h16M4 12h16M4 18h16"></path>
+				</svg>
+			</button>
+
+			<!-- Desktop menu -->
+			<nav class="hidden md:flex items-center gap-1">
+				{
+					links.map((link) => (
+						<a
+							href={link.href}
+							class="text-white/90 px-4 py-2 text-sm font-medium hover:text-amber-500 transition-colors rounded-md"
+						>
+							{link.name}
+						</a>
+					))
+				}
+			</nav>
+		</div>
+	</div>
+
+	<!-- Mobile menu -->
+	<div class="md:hidden hidden" id="mobile-menu">
+		<div class="px-2 pt-2 pb-3 space-y-1 bg-black/90">
+			{
+				links.map((link) => (
+					<a
+						href={link.href}
+						class="text-white/90 block px-3 py-2 text-base font-medium hover:text-amber-500 transition-colors"
+					>
+						{link.name}
+					</a>
+				))
+			}
+		</div>
+	</div>
 </header>
+
+<script>
+	const menuButton = document.getElementById("menu-button");
+	const mobileMenu = document.getElementById("mobile-menu");
+	const header = document.querySelector("header");
+
+	// Toggle mobile menu
+	menuButton?.addEventListener("click", () => {
+		mobileMenu?.classList.toggle("hidden");
+	});
+
+	// Close mobile menu when clicking a link
+	mobileMenu?.addEventListener("click", (e) => {
+		if ((e.target as Element).tagName === "A") {
+			mobileMenu.classList.add("hidden");
+		}
+	});
+
+	// Header scroll behavior
+	let lastScroll = 0;
+	window.addEventListener("scroll", () => {
+		const currentScroll = window.scrollY;
+
+		if (currentScroll <= 0) {
+			header?.classList.remove("bg-black");
+			header?.classList.add("bg-black/50");
+			return;
+		}
+
+		if (currentScroll > lastScroll) {
+			// Scrolling down
+			header?.classList.remove("-translate-y-full");
+			header?.classList.remove("bg-black/50");
+			header?.classList.add("bg-black");
+		}
+
+		lastScroll = currentScroll;
+	});
+</script>

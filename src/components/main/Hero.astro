@@ -1,33 +1,216 @@
 ---
-// Hero component for Los Camaradas Trío
+const videos = [
+    "/videos/IMG_0056.webm",
+    "/videos/IMG_0068.webm",
+    "/videos/IMG_0083.webm",
+    "/videos/IMG_0505.webm",
+    "/videos/IMG_0552.webm",
+    "/videos/IMG_2577.webm",
+    "/videos/IMG_2583.webm",
+    "/videos/IMG_2632.webm",
+];
+
+const socialLinks = [
+    { name: "Instagram", href: "#", icon: "i-mdi-instagram" },
+    { name: "Facebook", href: "#", icon: "i-mdi-facebook" },
+    { name: "WhatsApp", href: "#", icon: "i-mdi-whatsapp" },
+];
 ---
 
-<section id="hero" class="relative w-full min-h-[80vh] overflow-hidden">
-    <!-- Background image -->
+<section id="hero" class="relative w-full min-h-screen overflow-hidden">
+    <!-- Video background with preload -->
+    <div class="absolute inset-0 w-full h-full">
+        {
+            videos.map((video, index) => (
+                <video
+                    class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                        index === 0 ? "opacity-100" : "opacity-0"
+                    }`}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="auto"
+                    data-video-index={index}
+                    aria-hidden="true"
+                >
+                    <source src={video} type="video/webm" />
+                </video>
+            ))
+        }
+    </div>
+
+    <!-- Gradient overlay with improved visibility -->
     <div
-        class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style="background-image: url('/banner-band.jpeg');"
+        class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"
     >
     </div>
 
-    <!-- Blur and dark overlay -->
-    <div class="absolute inset-0 backdrop-blur-sm bg-black/30"></div>
-
-    <!-- Content area -->
+    <!-- Content area with improved layout -->
     <div
-        class="relative z-10 flex items-center justify-center min-h-[80vh] px-4"
+        class="relative z-10 flex items-center justify-center min-h-screen px-4"
     >
-        <div class="text-center max-w-2xl">
-            <p class="text-white text-lg leading-relaxed mb-6">
-                La charanga de Elda y Alicante que hará de tus momentos
-                especiales algo único.
-            </p>
-            <a
-                href="#contact"
-                class="bg-amber-100 text-gray-800 px-8 py-3 font-medium tracking-wide hover:bg-amber-200 transition-colors rounded-sm shadow-lg inline-block"
+        <div class="text-center max-w-4xl mx-auto">
+            <div class="space-y-6 mb-12">
+                <h1
+                    class="text-6xl md:text-8xl font-bold text-white tracking-tight animate-fade-up"
+                >
+                    Puma's Band
+                </h1>
+                <p
+                    class="text-xl md:text-3xl text-white/90 leading-relaxed animate-fade-up animation-delay-100"
+                >
+                    Música en vivo que hace vibrar tus eventos
+                </p>
+            </div>
+
+            <div
+                class="flex flex-col sm:flex-row gap-6 justify-center mb-12 animate-fade-up animation-delay-200"
             >
-                RESERVA AHORA
+                <a
+                    href="#contact"
+                    class="group bg-amber-500 text-white px-8 py-4 font-medium text-lg tracking-wide rounded-lg shadow-xl inline-flex items-center justify-center gap-2 hover:bg-amber-400 hover:scale-105 transition-all duration-300"
+                >
+                    <span>RESERVA AHORA</span>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+                <a
+                    href="#repertorio"
+                    class="group bg-white/10 backdrop-blur-sm text-white border border-white/20 px-8 py-4 font-medium text-lg tracking-wide rounded-lg shadow-xl inline-flex items-center justify-center gap-2 hover:bg-white/20 hover:scale-105 transition-all duration-300"
+                >
+                    <span>VER REPERTORIO</span>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
+                        ></path>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Social Links -->
+            <div
+                class="flex justify-center gap-6 animate-fade-up animation-delay-300"
+            >
+                {
+                    socialLinks.map((link) => (
+                        <a
+                            href={link.href}
+                            class="text-white/80 hover:text-amber-500 transition-colors duration-300"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={link.name}
+                        >
+                            <i class={`${link.icon} text-2xl`} />
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <a
+                href="#about"
+                class="text-white/80 hover:text-amber-500 transition-colors duration-300"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
             </a>
         </div>
     </div>
 </section>
+
+<script>
+    let currentVideo = 0;
+    const videos = document.querySelectorAll("[data-video-index]");
+
+    function switchVideo() {
+        const prevVideo = videos[currentVideo] as HTMLVideoElement;
+        prevVideo.classList.remove("opacity-100");
+        prevVideo.classList.add("opacity-0");
+
+        currentVideo = (currentVideo + 1) % videos.length;
+
+        const nextVideo = videos[currentVideo] as HTMLVideoElement;
+        nextVideo.classList.remove("opacity-0");
+        nextVideo.classList.add("opacity-100");
+
+        // Preload next video
+        const nextIndex = (currentVideo + 1) % videos.length;
+        (videos[nextIndex] as HTMLVideoElement).load();
+    }
+
+    // Cambiar video cada 8 segundos
+    setInterval(switchVideo, 8000);
+
+    // Optimización de reproducción de video
+    document.addEventListener("DOMContentLoaded", () => {
+        videos.forEach((video: Element) => {
+            const videoElement = video as HTMLVideoElement;
+            videoElement.play().catch(function (error) {
+                console.log("Video autoplay failed:", error);
+            });
+        });
+    });
+</script>
+
+<style>
+    @keyframes fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-up {
+        animation: fade-up 0.6s ease-out forwards;
+    }
+
+    .animation-delay-100 {
+        animation-delay: 100ms;
+    }
+
+    .animation-delay-200 {
+        animation-delay: 200ms;
+    }
+
+    .animation-delay-300 {
+        animation-delay: 300ms;
+    }
+</style>
