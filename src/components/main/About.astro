@@ -1,0 +1,186 @@
+---
+// About section for Los Camaradas Trío
+---
+
+<section
+    id="about"
+    class="relative min-h-screen bg-gradient-to-br from-slate-50 via-amber-50 to-orange-50 overflow-hidden"
+>
+    <!-- Background decorative elements -->
+    <div class="absolute inset-0 opacity-10">
+        <div
+            class="absolute top-20 left-10 w-32 h-32 bg-amber-300 rounded-full blur-3xl animate-pulse"
+        >
+        </div>
+        <div
+            class="absolute bottom-20 right-10 w-40 h-40 bg-orange-300 rounded-full blur-3xl animate-pulse delay-1000"
+        >
+        </div>
+        <div
+            class="absolute top-1/2 left-1/3 w-24 h-24 bg-yellow-300 rounded-full blur-2xl animate-pulse delay-500"
+        >
+        </div>
+    </div>
+
+    <div class="relative z-10 container mx-auto px-8 py-20">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <!-- Left side - Image with effects -->
+            <div class="relative group">
+                <!-- Main image container with hover effects -->
+                <div
+                    class="relative overflow-hidden rounded-2xl shadow-2xl transform transition-all duration-700 group-hover:scale-105 group-hover:rotate-1"
+                >
+                    <!-- Backdrop blur overlay -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-tr from-amber-500/20 via-transparent to-orange-500/20 backdrop-blur-[1px] z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    >
+                    </div>
+
+                    <!-- Image -->
+                    <img
+                        src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        alt="Los Camaradas Trío en concierto"
+                        class="w-full h-96 object-cover transition-all duration-700 group-hover:brightness-110 group-hover:contrast-110"
+                    />
+
+                    <!-- Floating musical notes -->
+                    <div
+                        class="absolute top-4 right-4 text-white/80 text-2xl animate-bounce"
+                    >
+                        🎵
+                    </div>
+                    <div
+                        class="absolute bottom-6 left-6 text-white/80 text-xl animate-bounce delay-300"
+                    >
+                        🎶
+                    </div>
+                </div>
+
+                <!-- Decorative elements around image -->
+                <div
+                    class="absolute -top-4 -left-4 w-8 h-8 bg-amber-400 rounded-full blur-sm opacity-70 animate-ping"
+                >
+                </div>
+                <div
+                    class="absolute -bottom-4 -right-4 w-6 h-6 bg-orange-400 rounded-full blur-sm opacity-70 animate-ping delay-700"
+                >
+                </div>
+            </div>
+
+            <!-- Right side - Content -->
+            <div class="space-y-8">
+                <!-- Title with gradient -->
+                <div class="space-y-4">
+                    <h2
+                        class="text-5xl font-bold bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent leading-tight"
+                    >
+                        Nuestra Historia
+                    </h2>
+                    <div
+                        class="w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full"
+                    >
+                    </div>
+                </div>
+
+                <!-- Description with enhanced typography -->
+                <div class="space-y-6">
+                    <p class="text-gray-700 text-lg leading-relaxed font-light">
+                        <span
+                            class="text-2xl font-semibold text-amber-600 float-left mr-2 leading-none"
+                            >L</span
+                        >
+                        os Camaradas Trío nació de la pasión compartida por la música
+                        clásica y el deseo de llevar la elegancia de los instrumentos
+                        de cuerda a cada evento especial.
+                    </p>
+
+                    <p class="text-gray-600 leading-relaxed">
+                        Con más de una década de experiencia, hemos acompañado
+                        bodas, celebraciones privadas y eventos corporativos,
+                        creando atmósferas únicas que perduran en la memoria de
+                        nuestros clientes.
+                    </p>
+
+                    <p class="text-gray-600 leading-relaxed">
+                        Nuestro repertorio abarca desde clásicos atemporales
+                        hasta adaptaciones modernas, siempre manteniendo la
+                        sofisticación y calidad que nos caracteriza.
+                    </p>
+                </div>
+
+                <!-- Stats with animated counters -->
+                <div class="grid grid-cols-3 gap-6 py-8">
+                    <div class="text-center group">
+                        <div
+                            class="text-3xl font-bold text-amber-600 group-hover:scale-110 transition-transform duration-300"
+                        >
+                            500+
+                        </div>
+                        <div
+                            class="text-sm text-gray-500 uppercase tracking-wide"
+                        >
+                            Eventos
+                        </div>
+                    </div>
+                    <div class="text-center group">
+                        <div
+                            class="text-3xl font-bold text-orange-600 group-hover:scale-110 transition-transform duration-300"
+                        >
+                            10+
+                        </div>
+                        <div
+                            class="text-sm text-gray-500 uppercase tracking-wide"
+                        >
+                            Años
+                        </div>
+                    </div>
+                    <div class="text-center group">
+                        <div
+                            class="text-3xl font-bold text-red-600 group-hover:scale-110 transition-transform duration-300"
+                        >
+                            100%
+                        </div>
+                        <div
+                            class="text-sm text-gray-500 uppercase tracking-wide"
+                        >
+                            Satisfacción
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Button with enhanced effects -->
+                <div class="pt-4">
+                    <button
+                        class="group relative overflow-hidden bg-gradient-to-r from-amber-500 to-orange-600 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                    >
+                        <span class="relative z-10"
+                            >Conoce Más Sobre Nosotros</span
+                        >
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        >
+                        </div>
+                        <div
+                            class="absolute top-0 left-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"
+                        >
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom decorative wave -->
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden">
+        <svg
+            class="relative block w-full h-20"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+        >
+            <path
+                d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                class="fill-white/10"></path>
+        </svg>
+    </div>
+</section>

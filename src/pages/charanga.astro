@@ -1,0 +1,21 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import MainCharanga from "@/components/main/MainCharanga.astro";
+
+const CHARANGA_TITLE = "Baloo's Band - Tu mejor charanga en Alicante";
+const CHARANGA_DESCRIPTION = "La mejor charanga para disfrutar de la música valenciana al máximo nivel. Despedidas, bodas, fiestas privadas, Moros y Cristianos, Fallas, Hogueras, etc.";
+---
+
+<!doctype html>
+<html lang="es">
+	<BaseHead title={CHARANGA_TITLE} description={CHARANGA_DESCRIPTION} />
+	<body class="layout w-full flex justify-center items-center">
+		<div class="w-6xl">
+			<Header />
+			<MainCharanga />
+			<Footer />
+		</div>
+	</body>
+</html>

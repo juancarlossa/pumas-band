@@ -1,0 +1,39 @@
+---
+const links = [
+	{ name: "Inicio", href: "#hero" },
+	{ name: "Nosotros", href: "#about" },
+	{ name: "Repertorio", href: "#services" },
+	{ name: "Reservas", href: "#contact" },
+];
+---
+
+<header
+	class="w-full bg-black/50 backdrop-blur-3xl absolute h-fit top-0 left-0 flex justify-between gap-10 items-center p-5 z-50"
+>
+	<div class="text-gray-400 font-light text-3xl leading-tight tracking-wider">
+		<img
+			src="/logo.png"
+			alt="Logo"
+			class="h-18 w-18 object-contain inline-block mr-3"
+		/>
+	</div>
+	<nav class="flex items-center text-sm font-medium border-y-2 z-20">
+		<a
+			href={links[0].href}
+			class="bg-[#c6c4b0] focus:bg-[#c6c4b0] active:bg-[#c6c4b0] text-white px-8 py-2 hover:bg-stone-400 transition-colors"
+		>
+			{links[0].name}
+		</a>
+		{
+			links.slice(1).map((link) => (
+				<a
+					href={link.href}
+					class=" text-slate-600  px-8 py-2 hover:bg-stone-400 hover:text-white transition-colors"
+				>
+					{link.name}
+				</a>
+			))
+		}
+	</nav>
+	<div></div>
+</header>

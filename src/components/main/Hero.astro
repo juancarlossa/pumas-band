@@ -1,0 +1,33 @@
+---
+// Hero component for Los Camaradas Trío
+---
+
+<section id="hero" class="relative w-full min-h-[80vh] overflow-hidden">
+    <!-- Background image -->
+    <div
+        class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style="background-image: url('/banner-band.jpeg');"
+    >
+    </div>
+
+    <!-- Blur and dark overlay -->
+    <div class="absolute inset-0 backdrop-blur-sm bg-black/30"></div>
+
+    <!-- Content area -->
+    <div
+        class="relative z-10 flex items-center justify-center min-h-[80vh] px-4"
+    >
+        <div class="text-center max-w-2xl">
+            <p class="text-white text-lg leading-relaxed mb-6">
+                La charanga de Elda y Alicante que hará de tus momentos
+                especiales algo único.
+            </p>
+            <a
+                href="#contact"
+                class="bg-amber-100 text-gray-800 px-8 py-3 font-medium tracking-wide hover:bg-amber-200 transition-colors rounded-sm shadow-lg inline-block"
+            >
+                RESERVA AHORA
+            </a>
+        </div>
+    </div>
+</section>
