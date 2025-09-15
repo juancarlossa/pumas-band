@@ -5,9 +5,15 @@ import {
   motion,
   useInView,
   UseInViewOptions,
-  Variants,
   MotionProps,
 } from "motion/react";
+
+// Define Variants type locally
+type Variants = {
+  [key: string]: {
+    [key: string]: any;
+  };
+};
 import { useRef } from "react";
 
 type MarginType = UseInViewOptions["margin"];

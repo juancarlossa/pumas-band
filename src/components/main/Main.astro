@@ -2,10 +2,14 @@
 import { Hero } from "./Hero";
 import About from "./About.astro";
 import { Services } from "./Services";
+import Bio from "./Bio.astro";
+import { CarouselFull } from "../juankui/Carousel";
+import { Eventos } from "../juankui/Eventos";
 ---
 
 <main class="w-full flex flex-col flex-1 justify-center items-center">
-    <Hero client:load />
-    <About />
+    <Hero client:idle />
+    <CarouselFull client:idle />
+    <Eventos client:idle />
     <Services client:idle />
 </main>

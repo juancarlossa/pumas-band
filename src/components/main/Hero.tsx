@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { ButtonCta, ButtonGhost } from "../juankui/Buttons";
 const videos = [
     { src: "/videos/IMG_0056.webm", cols: 3 },
     { src: "/videos/IMG_0068.webm", cols: 2 },
@@ -50,9 +51,10 @@ export function Hero() {
                     {
                         videos.map((video, index) => (
                             <div
+                                key={index}
                                 className={`relative overflow-hidden group w-full h-[50vh] rounded-lg shadow-lg ${video.cols === 2 ? 'col-span-2' :
-                                        video.cols === 3 ? 'col-span-3' :
-                                            video.cols === 4 ? 'col-span-4' : 'col-span-1'
+                                    video.cols === 3 ? 'col-span-3' :
+                                        video.cols === 4 ? 'col-span-4' : 'col-span-1'
                                     }`}
                             >
                                 <video
@@ -103,45 +105,8 @@ export function Hero() {
                     <div
                         className="flex flex-col sm:flex-row gap-6 justify-center mb-12 animate-fade-up animation-delay-200"
                     >
-                        <a
-                            href="#contact"
-                            className="group bg-amber-500 text-white px-8 py-4 font-medium text-lg tracking-wide rounded-lg shadow-xl inline-flex items-center justify-center gap-2 hover:bg-amber-400 hover:scale-105 transition-all duration-300"
-                        >
-                            <span>RESERVA AHORA</span>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </a>
-                        <a
-                            href="#repertorio"
-                            className="group bg-white/10 backdrop-blur-sm text-white border border-white/20 px-8 py-4 font-medium text-lg tracking-wide rounded-lg shadow-xl inline-flex items-center justify-center gap-2 hover:bg-white/20 hover:scale-105 transition-all duration-300"
-                        >
-                            <span>VER REPERTORIO</span>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
-                                ></path>
-                            </svg>
-                        </a>
+                        <ButtonCta>Contáctanos</ButtonCta>
+                        <ButtonGhost>Ver Repertorio</ButtonGhost>
                     </div>
 
                     <div
@@ -150,6 +115,7 @@ export function Hero() {
                         {
                             socialLinks.map((link) => (
                                 <a
+                                    key={link.name}
                                     href={link.href}
                                     className="text-white/80 hover:text-amber-500 transition-colors duration-300"
                                     target="_blank"
@@ -176,9 +142,9 @@ export function Hero() {
                             stroke="currentColor"
                         >
                             <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
                                 d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                         </svg>
                     </a>

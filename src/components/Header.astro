@@ -31,25 +31,17 @@ const links = [
 			<!-- Mobile menu button -->
 			<button
 				type="button"
-				class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:text-amber-500"
+				class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:text-amber-500 transition-colors duration-200"
 				aria-controls="mobile-menu"
 				aria-expanded="false"
 				id="menu-button"
 			>
 				<span class="sr-only">Abrir menú principal</span>
-				<svg
-					class="h-6 w-6"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M4 6h16M4 12h16M4 18h16"></path>
-				</svg>
+				<div class="relative w-6 h-6">
+					<span class="absolute top-1 left-0 w-6 h-0.5 bg-current transition-all duration-300 ease-in-out" id="line1"></span>
+					<span class="absolute top-3 left-0 w-6 h-0.5 bg-current transition-all duration-300 ease-in-out" id="line2"></span>
+					<span class="absolute top-5 left-0 w-6 h-0.5 bg-current transition-all duration-300 ease-in-out" id="line3"></span>
+				</div>
 			</button>
 
 			<!-- Desktop menu -->
@@ -58,9 +50,10 @@ const links = [
 					links.map((link) => (
 						<a
 							href={link.href}
-							class="text-white/90 px-4 py-2 text-sm font-medium hover:text-amber-500 transition-colors rounded-md"
+							class="relative text-white/90 px-4 py-2 text-sm font-medium hover:text-amber-500 transition-colors rounded-md group"
 						>
 							{link.name}
+							<span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-amber-500 transition-all duration-300 ease-out group-hover:w-3/4 group-hover:left-1/8"></span>
 						</a>
 					))
 				}
@@ -69,13 +62,14 @@ const links = [
 	</div>
 
 	<!-- Mobile menu -->
-	<div class="md:hidden hidden" id="mobile-menu">
-		<div class="px-2 pt-2 pb-3 space-y-1 bg-black/90">
+	<div class="md:hidden overflow-hidden transition-all duration-300 ease-in-out max-h-0" id="mobile-menu">
+		<div class="px-2 pt-2 pb-3 space-y-1 bg-black/90 backdrop-blur-md">
 			{
-				links.map((link) => (
+				links.map((link, index) => (
 					<a
 						href={link.href}
-						class="text-white/90 block px-3 py-2 text-base font-medium hover:text-amber-500 transition-colors"
+						class="text-white/90 block px-3 py-2 text-base font-medium hover:text-amber-500 transition-all duration-200 transform translate-x-4 opacity-0 mobile-link"
+						style={`transition-delay: ${index * 50}ms`}
 					>
 						{link.name}
 					</a>
@@ -89,16 +83,69 @@ const links = [
 	const menuButton = document.getElementById("menu-button");
 	const mobileMenu = document.getElementById("mobile-menu");
 	const header = document.querySelector("header");
+	const line1 = document.getElementById("line1");
+	const line2 = document.getElementById("line2");
+	const line3 = document.getElementById("line3");
+	const mobileLinks = document.querySelectorAll(".mobile-link");
+
+	let isMenuOpen = false;
 
 	// Toggle mobile menu
 	menuButton?.addEventListener("click", () => {
-		mobileMenu?.classList.toggle("hidden");
+		isMenuOpen = !isMenuOpen;
+		
+		if (isMenuOpen) {
+			// Open menu
+			mobileMenu?.classList.remove("max-h-0");
+			mobileMenu?.classList.add("max-h-96");
+			
+			// Animate hamburger to X
+			line1?.classList.add("rotate-45", "translate-y-2");
+			line2?.classList.add("opacity-0");
+			line3?.classList.add("-rotate-45", "-translate-y-2");
+			
+			// Animate links in
+			setTimeout(() => {
+				mobileLinks.forEach((link) => {
+					link.classList.remove("translate-x-4", "opacity-0");
+					link.classList.add("translate-x-0", "opacity-100");
+				});
+			}, 100);
+		} else {
+			// Close menu
+			mobileMenu?.classList.remove("max-h-96");
+			mobileMenu?.classList.add("max-h-0");
+			
+			// Animate X to hamburger
+			line1?.classList.remove("rotate-45", "translate-y-2");
+			line2?.classList.remove("opacity-0");
+			line3?.classList.remove("-rotate-45", "-translate-y-2");
+			
+			// Animate links out
+			mobileLinks.forEach((link) => {
+				link.classList.add("translate-x-4", "opacity-0");
+				link.classList.remove("translate-x-0", "opacity-100");
+			});
+		}
 	});
 
 	// Close mobile menu when clicking a link
 	mobileMenu?.addEventListener("click", (e) => {
 		if ((e.target as Element).tagName === "A") {
-			mobileMenu.classList.add("hidden");
+			isMenuOpen = false;
+			mobileMenu.classList.remove("max-h-96");
+			mobileMenu.classList.add("max-h-0");
+			
+			// Reset hamburger icon
+			line1?.classList.remove("rotate-45", "translate-y-2");
+			line2?.classList.remove("opacity-0");
+			line3?.classList.remove("-rotate-45", "-translate-y-2");
+			
+			// Reset links
+			mobileLinks.forEach((link) => {
+				link.classList.add("translate-x-4", "opacity-0");
+				link.classList.remove("translate-x-0", "opacity-100");
+			});
 		}
 	});
 
