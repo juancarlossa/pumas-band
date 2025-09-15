@@ -11,6 +11,9 @@ import { Title } from "./Title";
 import { Section } from "./Section";
 
 const photos = [
+    { src: "/fotos/IMG_4847.webp", alt: "Puma's Band - Foto 9" },
+    { src: "/fotos/IMG_4851.webp", alt: "Puma's Band - Foto 10" },
+    { src: "/fotos/IMG_6101.webp", alt: "Puma's Band - Foto 11" },
     { src: "/fotos/IMG_2546.webp", alt: "Puma's Band - Foto 2" },
     { src: "/fotos/IMG_2562.webp", alt: "Puma's Band - Foto 3" },
     { src: "/fotos/IMG_2589.webp", alt: "Puma's Band - Foto 4" },
@@ -18,9 +21,6 @@ const photos = [
     { src: "/fotos/IMG_2665.webp", alt: "Puma's Band - Foto 6" },
     { src: "/fotos/IMG_4341.webp", alt: "Puma's Band - Foto 7" },
     { src: "/fotos/IMG_4831.webp", alt: "Puma's Band - Foto 8" },
-    { src: "/fotos/IMG_4847.webp", alt: "Puma's Band - Foto 9" },
-    { src: "/fotos/IMG_4851.webp", alt: "Puma's Band - Foto 10" },
-    { src: "/fotos/IMG_6101.webp", alt: "Puma's Band - Foto 11" },
     { src: "/fotos/IMG_7747.webp", alt: "Puma's Band - Foto 12" },
     { src: "/fotos/IMG_8775.webp", alt: "Puma's Band - Foto 13" },
     { src: "/fotos/IMG_9836.webp", alt: "Puma's Band - Foto 14" },
@@ -39,7 +39,7 @@ export function CarouselFull() {
                     <CarouselContent className="-ml-2 md:-ml-4">
                         {photos.map((photo, index) => (
                             <CarouselItem key={index} className="py-4 pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                                <div className="relative group overflow-hidden rounded-lg shadow-lg bg-black/20 backdrop-blur-sm transition-all duration-500 group-hover:scale-105 group-has-[:hover]/container:blur-sm hover:!blur-none">
+                                <div className="relative group overflow-hidden rounded-lg shadow-lg bg-black/20 lg:backdrop-blur-sm transition-all duration-500 group-hover:scale-105 group-has-[:hover]/container:lg:blur-sm lg:hover:!blur-none">
                                     <div className="aspect-square">
                                         <img
                                             src={photo.src}

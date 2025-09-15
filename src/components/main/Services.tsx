@@ -6,8 +6,8 @@ import { CheckIcon } from "lucide-react";
 
 const servicePacks = [
     {
-        name: "Pack Fiesta",
-        price: "750€",
+        name: "Pack Charanga",
+        price: "x€",
         description: "Energía pura que transforma cualquier celebración en una experiencia inolvidable. Ritmo, color y diversión sin límites para hacer vibrar a todos tus invitados.",
         popular: true,
         features: [
@@ -24,8 +24,8 @@ const servicePacks = [
         buttonVariant: "primary"
     },
     {
-        name: "Pack Elegance",
-        price: "950€",
+        name: "Pack Charanga Pro",
+        price: "x€",
         description: "Sofisticación musical que eleva la atmósfera de tu evento. Sonidos refinados y presencia escénica impecable para ocasiones que merecen distinción.",
         popular: false,
         features: [
@@ -42,8 +42,8 @@ const servicePacks = [
         buttonVariant: "secondary"
     },
     {
-        name: "Pack Romantic",
-        price: "1.200€",
+        name: "Pack Ceremonia",
+        price: "x€",
         description: "La banda sonora perfecta para el día más importante de vuestras vidas. Música que acompaña cada momento mágico desde el 'sí quiero' hasta el último baile.",
         popular: false,
         features: [
