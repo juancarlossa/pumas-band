@@ -3,7 +3,7 @@
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
-
+import vercel from '@astrojs/vercel';
 import react from '@astrojs/react';
 
 import tailwindcss from '@tailwindcss/vite';
@@ -12,7 +12,8 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://example.com',
   integrations: [mdx(), sitemap(), react()],
-
+  output: "server",
+  adapter: vercel(),
   vite: {
     plugins: [tailwindcss()],
   },
