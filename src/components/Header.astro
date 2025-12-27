@@ -10,6 +10,9 @@ const links = [
 <header
 	class="w-full fixed top-0 left-0 z-50 bg-black/50 backdrop-blur-md transition-all duration-300"
 >
+	<script>
+		fetch("/api/ip");
+	</script>
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="flex justify-between items-center h-16 md:h-20">
 			<!-- Logo -->
@@ -38,9 +41,15 @@ const links = [
 			>
 				<span class="sr-only">Abrir menú principal</span>
 				<div class="relative w-6 h-6">
-					<span class="absolute top-1 left-0 w-6 h-0.5 bg-current transition-all duration-300 ease-in-out" id="line1"></span>
-					<span class="absolute top-3 left-0 w-6 h-0.5 bg-current transition-all duration-300 ease-in-out" id="line2"></span>
-					<span class="absolute top-5 left-0 w-6 h-0.5 bg-current transition-all duration-300 ease-in-out" id="line3"></span>
+					<span
+						class="absolute top-1 left-0 w-6 h-0.5 bg-current transition-all duration-300 ease-in-out"
+						id="line1"></span>
+					<span
+						class="absolute top-3 left-0 w-6 h-0.5 bg-current transition-all duration-300 ease-in-out"
+						id="line2"></span>
+					<span
+						class="absolute top-5 left-0 w-6 h-0.5 bg-current transition-all duration-300 ease-in-out"
+						id="line3"></span>
 				</div>
 			</button>
 
@@ -53,7 +62,7 @@ const links = [
 							class="relative text-white/90 px-4 py-2 text-sm font-medium hover:text-amber-500 transition-colors rounded-md group"
 						>
 							{link.name}
-							<span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-amber-500 transition-all duration-300 ease-out group-hover:w-3/4 group-hover:left-1/8"></span>
+							<span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-amber-500 transition-all duration-300 ease-out group-hover:w-3/4 group-hover:left-1/8" />
 						</a>
 					))
 				}
@@ -62,7 +71,10 @@ const links = [
 	</div>
 
 	<!-- Mobile menu -->
-	<div class="md:hidden overflow-hidden transition-all duration-300 ease-in-out max-h-0" id="mobile-menu">
+	<div
+		class="md:hidden overflow-hidden transition-all duration-300 ease-in-out max-h-0"
+		id="mobile-menu"
+	>
 		<div class="px-2 pt-2 pb-3 space-y-1 bg-black/90 backdrop-blur-md">
 			{
 				links.map((link, index) => (
@@ -93,17 +105,17 @@ const links = [
 	// Toggle mobile menu
 	menuButton?.addEventListener("click", () => {
 		isMenuOpen = !isMenuOpen;
-		
+
 		if (isMenuOpen) {
 			// Open menu
 			mobileMenu?.classList.remove("max-h-0");
 			mobileMenu?.classList.add("max-h-96");
-			
+
 			// Animate hamburger to X
 			line1?.classList.add("rotate-45", "translate-y-2");
 			line2?.classList.add("opacity-0");
 			line3?.classList.add("-rotate-45", "-translate-y-2");
-			
+
 			// Animate links in
 			setTimeout(() => {
 				mobileLinks.forEach((link) => {
@@ -115,12 +127,12 @@ const links = [
 			// Close menu
 			mobileMenu?.classList.remove("max-h-96");
 			mobileMenu?.classList.add("max-h-0");
-			
+
 			// Animate X to hamburger
 			line1?.classList.remove("rotate-45", "translate-y-2");
 			line2?.classList.remove("opacity-0");
 			line3?.classList.remove("-rotate-45", "-translate-y-2");
-			
+
 			// Animate links out
 			mobileLinks.forEach((link) => {
 				link.classList.add("translate-x-4", "opacity-0");
@@ -135,12 +147,12 @@ const links = [
 			isMenuOpen = false;
 			mobileMenu.classList.remove("max-h-96");
 			mobileMenu.classList.add("max-h-0");
-			
+
 			// Reset hamburger icon
 			line1?.classList.remove("rotate-45", "translate-y-2");
 			line2?.classList.remove("opacity-0");
 			line3?.classList.remove("-rotate-45", "-translate-y-2");
-			
+
 			// Reset links
 			mobileLinks.forEach((link) => {
 				link.classList.add("translate-x-4", "opacity-0");
