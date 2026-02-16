@@ -16,5 +16,8 @@ export default defineConfig({
   adapter: vercel(),
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      noExternal: ["gsap"],
+    },
   },
 });
