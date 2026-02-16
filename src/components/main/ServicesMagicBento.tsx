@@ -29,6 +29,7 @@ interface ServicesMagicBentoProps {
   enableMagnetism?: boolean;
 }
 
+
 const createParticleElement = (x: number, y: number, color = DEFAULT_GLOW_COLOR) => {
   const el = document.createElement('div');
   el.className = 'particle';
