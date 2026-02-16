@@ -1,5 +1,5 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
-import { gsap } from 'gsap';
+import gsap from 'gsap';
 import '../MagicBento.css';
 
 const DEFAULT_PARTICLE_COUNT = 12;
