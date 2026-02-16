@@ -3,6 +3,7 @@ import { ButtonCta, ButtonGhost } from "../juankui/Buttons";
 import EditableText from "../EditableText";
 import EditableButton from "../EditableButton";
 import EditableVideoWithButton from "../EditableVideoWithButton";
+import { AdminCalendar } from "../admin/AdminCalendar";
 
 const defaultVideos = [
     { src: "/videos/IMG_0056.webm", cols: 3, key: "hero.video1" },
@@ -17,12 +18,21 @@ const socialLinks = [
     { name: "WhatsApp", href: "#", icon: "i-mdi-whatsapp" },
 ];
 
+interface CalendarEvent {
+    id?: number
+    date: Date
+    isBusy: boolean
+    titulo: string
+    descripcion: string
+}
+
 interface HeroEditableProps {
     texts?: Record<string, string>;
     media?: Record<string, { url: string; type: string; alt?: string }>;
+    calendarEvents?: CalendarEvent[];
 }
 
-export function HeroEditable({ texts = {}, media = {} }: HeroEditableProps) {
+export function HeroEditable({ texts = {}, media = {}, calendarEvents = [] }: HeroEditableProps) {
     // Combinar videos por defecto con los de la base de datos
     const videos = defaultVideos.map(v => ({
         ...v,
@@ -152,7 +162,12 @@ export function HeroEditable({ texts = {}, media = {} }: HeroEditableProps) {
                         </svg>
                     </a>
                 </div>
+
+                {/* Calendario de administración */}
+                <div className="absolute bottom-8 left-8 animate-fade-up animation-delay-400">
+                    <AdminCalendar initialEvents={calendarEvents} />
+                </div>
             </div>
         </section>
     );
-}
+};

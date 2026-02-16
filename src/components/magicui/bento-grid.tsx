@@ -46,7 +46,7 @@ const BentoCard = ({
   <div
     key={name}
     className={cn(
-      "group relative col-span-3 flex flex-col justify-between overflow-hidden rounded-xl",
+      "group relative col-span-3 flex flex-col justify-end overflow-hidden rounded-xl lg:w-full w-full",
       // Remove background colors to show image backgrounds
       "border border-white/10 shadow-lg",
       className,
@@ -54,53 +54,29 @@ const BentoCard = ({
     {...props}
   >
     <div>{background}</div>
-    <div className="relative p-4 z-10">
-      <div className="pointer-events-none flex transform-gpu flex-col gap-1 transition-all duration-300 lg:group-hover:-translate-y-10">
-        <Icon className="h-12 w-12 origin-left transform-gpu transition-all duration-300 ease-in-out group-hover:scale-75" />
+    <div className="relative p-4 z-10 group-hover:-translate-y-10 transition-all duration-300">
+      <div className="flex transform-gpu flex-col gap-1 transition-all duration-300">
+        <Icon className="h-12 w-12 origin-left transform-gpu transition-all duration-300 ease-in-out" />
         <h3 className="text-xl font-semibold ">
           {name}
         </h3>
         <p className="max-w-lg">{description}</p>
       </div>
 
-      <div
-        className={cn(
-          "lg:hidden pointer-events-none flex w-full translate-y-0 transform-gpu flex-row items-center transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100",
-        )}
-      >
-        <Button
-          variant="link"
-          asChild
-          size="sm"
-          className="pointer-events-auto p-0"
-        >
-          <a href={href}>
-            {cta}
-            <ArrowRightIcon className="ms-2 h-4 w-4 rtl:rotate-180" />
-          </a>
-        </Button>
+      <div className="lg:hidden flex w-full translate-y-0 transform-gpu flex-row items-center transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 mt-4">
+        <a href={href} className="text-white hover:underline">
+          {cta}
+        </a>
       </div>
     </div>
 
-    <div
-      className={cn(
-        "hidden lg:flex pointer-events-none absolute bottom-0 w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100",
-      )}
-    >
-      <Button
-        variant="link"
-        asChild
-        size="sm"
-        className="pointer-events-auto p-0"
-      >
-        <a href={href}>
-          {cta}
-          <ArrowRightIcon className="ms-2 h-4 w-4 rtl:rotate-180" />
-        </a>
-      </Button>
+    <div className="hidden lg:flex absolute bottom-0 w-full translate-y-10 transform-gpu flex-row items-center p-5 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+      <a href={href} className="text-white underline hover:text-amber-400">
+        {cta}
+      </a>
     </div>
 
-    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] group-hover:dark:bg-neutral-800/10" />
+    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03]" />
   </div>
 );
 

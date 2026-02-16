@@ -78,3 +78,67 @@ export async function getMediaBySection(section: string): Promise<EditableMedia[
         SELECT * FROM editable_media WHERE section = ${section} ORDER BY key
     `;
 }
+
+export interface CalendarEvent {
+    id: number;
+    event_date: Date;
+    is_busy: boolean;
+    titulo: string;
+    descripcion: string | null;
+    created_at: Date;
+    updated_at: Date;
+}
+
+export async function getAllCalendarEvents(): Promise<CalendarEvent[]> {
+    return await sql<CalendarEvent[]>`
+        SELECT * FROM calendar_events ORDER BY event_date
+    `;
+}
+
+export async function getCalendarEventsByDateRange(startDate: Date, endDate: Date): Promise<CalendarEvent[]> {
+    return await sql<CalendarEvent[]>`
+        SELECT * FROM calendar_events 
+        WHERE event_date >= ${startDate.toISOString().split('T')[0]} 
+        AND event_date <= ${endDate.toISOString().split('T')[0]}
+        ORDER BY event_date
+    `;
+}
+
+export async function createCalendarEvent(
+    eventDate: Date,
+    isBusy: boolean,
+    titulo: string,
+    descripcion?: string
+): Promise<CalendarEvent> {
+    const result = await sql<CalendarEvent[]>`
+        INSERT INTO calendar_events (event_date, is_busy, titulo, descripcion)
+        VALUES (${eventDate.toISOString().split('T')[0]}, ${isBusy}, ${titulo}, ${descripcion || null})
+        RETURNING *
+    `;
+    return result[0];
+}
+
+export async function updateCalendarEvent(
+    id: number,
+    eventDate: Date,
+    isBusy: boolean,
+    titulo: string,
+    descripcion?: string
+): Promise<CalendarEvent> {
+    const result = await sql<CalendarEvent[]>`
+        UPDATE calendar_events 
+        SET event_date = ${eventDate.toISOString().split('T')[0]},
+            is_busy = ${isBusy},
+            titulo = ${titulo},
+            descripcion = ${descripcion || null}
+        WHERE id = ${id}
+        RETURNING *
+    `;
+    return result[0];
+}
+
+export async function deleteCalendarEvent(id: number): Promise<void> {
+    await sql`
+        DELETE FROM calendar_events WHERE id = ${id}
+    `;
+}

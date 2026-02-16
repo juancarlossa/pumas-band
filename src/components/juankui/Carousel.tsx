@@ -40,7 +40,7 @@ export function CarouselFull({ texts = {}, media = {} }: CarouselFullProps) {
     }));
     return (
         <Section className={cn("w-full mx-auto px-4")}>
-            <div className="mb-8 text-center">
+            <div className="text-center">
                 <Title
                     title={texts['gallery.title'] || "Galería de Fotos"}
                     subtitle={texts['gallery.subtitle'] || "Momentos únicos de Puma's Band"}

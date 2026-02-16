@@ -4,7 +4,7 @@ import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import Main from "@/components/main/Main.astro";
-import { getAllTexts, getAllMedia } from "@/lib/db";
+import { getAllTexts, getAllMedia, getAllCalendarEvents } from "@/lib/db";
 
 // Cargar textos y medios desde la base de datos
 const texts = await getAllTexts();
@@ -17,14 +17,23 @@ const mediaMap = Object.fromEntries(
 		{ url: m.url, type: m.type, alt: m.alt_text || "" },
 	]),
 );
+
+// Cargar eventos del calendario
+const calendarEvents = await getAllCalendarEvents();
 ---
 
 <!doctype html>
 <html lang="en">
 	<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	<body class="w-full flex flex-col justify-center items-center">
+	<body
+		class="w-full overflow-x-hidden flex flex-col justify-center items-center"
+	>
 		<Header />
-		<Main texts={textsMap} media={mediaMap} />
+		<Main
+			texts={textsMap}
+			media={mediaMap}
+			calendarEvents={calendarEvents}
+		/>
 		<Footer />
 	</body>
 </html>

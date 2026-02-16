@@ -5,17 +5,24 @@ import { Services } from "./Services";
 import Bio from "./Bio.astro";
 import { CarouselFull } from "../juankui/Carousel";
 import { Eventos } from "../juankui/Eventos";
+import type { CalendarEvent } from "@/lib/db";
 
 interface Props {
     texts?: Record<string, string>;
     media?: Record<string, { url: string; type: string; alt?: string }>;
+    calendarEvents?: CalendarEvent[];
 }
 
-const { texts = {}, media = {} } = Astro.props;
+const { texts = {}, media = {}, calendarEvents = [] } = Astro.props;
 ---
 
 <main class="w-full flex flex-col flex-1 justify-center items-center">
-    <Hero client:idle texts={texts} media={media} />
+    <Hero
+        client:idle
+        texts={texts}
+        media={media}
+        calendarEvents={calendarEvents}
+    />
     <CarouselFull client:idle texts={texts} media={media} />
     <Eventos client:idle texts={texts} media={media} />
     <Services client:idle texts={texts} />

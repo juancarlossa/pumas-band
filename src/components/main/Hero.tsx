@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { ButtonCta, ButtonGhost } from "../juankui/Buttons";
+import { AnimatedButton } from "../ui/animated-button";
+import { MagicCard } from "../ui/magic-card";
+import { HeroMagicBento } from "./HeroMagicBento";
+import { AvailabilityCalendar, type BandEvent } from "../ui/availability-calendar";
+import type { CalendarEvent } from "@/lib/db";
 
 interface HeroProps {
     texts?: Record<string, string>;
     media?: Record<string, { url: string; type: string; alt?: string }>;
+    calendarEvents?: CalendarEvent[];
 }
 
 const defaultVideos = [
@@ -19,7 +24,7 @@ const socialLinks = [
     { name: "WhatsApp", href: "#", icon: "i-mdi-whatsapp" },
 ];
 
-export function Hero({ texts = {}, media = {} }: HeroProps) {
+export function Hero({ texts = {}, media = {}, calendarEvents = [] }: HeroProps) {
     // Combinar videos por defecto con los de la base de datos
     const videos = defaultVideos.map(v => ({
         ...v,
@@ -28,6 +33,14 @@ export function Hero({ texts = {}, media = {} }: HeroProps) {
 
     const [currentVideo, setCurrentVideo] = useState(0);
     const videoRefs = useRef<(HTMLVideoElement | undefined)[]>([]);
+
+    // Convertir eventos de la DB al formato BandEvent
+    const bandEvents: BandEvent[] = calendarEvents.map(event => ({
+        date: new Date(event.event_date),
+        isBusy: event.is_busy,
+        titulo: event.titulo,
+        descripcion: event.descripcion || ""
+    }));
 
     useEffect(() => {
         videoRefs.current = Array.from({ length: videos.length }, () => undefined);
@@ -55,97 +68,90 @@ export function Hero({ texts = {}, media = {} }: HeroProps) {
     return (
         <section id="hero" className="relative w-full overflow-hidden">
             <div className="absolute inset-0">
-                <div className="grid grid-cols-5 grid-rows-2 gap-4 w-full mx-auto p-2">
-                    {
-                        videos.map((video, index) => (
-                            <div
-                                key={index}
-                                className={`relative overflow-hidden group w-full h-[50vh] rounded-lg shadow-lg ${video.cols === 2 ? 'col-span-2' :
-                                    video.cols === 3 ? 'col-span-3' :
-                                        video.cols === 4 ? 'col-span-4' : 'col-span-1'
-                                    }`}
-                            >
-                                <video
-                                    ref={(el) => {
-                                        if (el) {
-                                            videoRefs.current[index] = el;
-                                        }
-                                    }}
-                                    className="h-full w-full object-cover transform  transition-transform duration-300"
-                                    muted
-                                    loop
-                                    autoPlay
-                                    playsInline
-                                    preload="auto"
-                                    data-video-index={index}
-                                >
-                                    <source src={video.src} type="video/webm" />
-                                </video>
-                            </div>
-                        ))
-                    }
-                </div>
-            </div>
-
-
-            <div
-                className="absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-black/80"
-            >
+                <HeroMagicBento
+                    videos={videos}
+                    videoRefs={videoRefs}
+                    textAutoHide={false}
+                    enableStars={true}
+                    enableSpotlight={true}
+                    enableBorderGlow={true}
+                    enableTilt={false}
+                    clickEffect={true}
+                    enableMagnetism={true}
+                    glowColor="251, 191, 36"
+                />
             </div>
 
             <div
                 className="relative z-10 flex items-center justify-center min-h-screen px-4"
             >
-                <div className="text-center max-w-4xl mx-auto">
-                    <div className="space-y-6 mb-12">
-                        <h1
-                            className="text-6xl md:text-8xl font-bold text-white tracking-tight animate-fade-up"
-                        >
-                            {texts['hero.title'] || "Puma's Band"}
-                        </h1>
-                        <p
-                            className="text-xl md:text-3xl text-white/90 leading-relaxed animate-fade-up animation-delay-100"
-                        >
-                            {texts['hero.subtitle'] || "Música en directo para eventos y todo tipo de fiestas"}
-                        </p>
-                    </div>
 
-                    <div
-                        className="flex flex-col sm:flex-row gap-6 justify-center mb-12 animate-fade-up animation-delay-200"
-                    >
-                        <a
-                            href={texts['hero.button1.href'] || "#contact"}
-                            className="bg-gradient-to-r from-amber-500 to-orange-600 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-block"
-                        >
-                            {texts['hero.button1.text'] || "Contáctanos"}
-                        </a>
-                        <a
-                            href={texts['hero.button2.href'] || "https://wa.me/123456789"}
-                            className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30 hover:bg-white/20 transition-all duration-300 inline-block"
-                        >
-                            {texts['hero.button2.text'] || "WhatsApp"}
-                        </a>
-                    </div>
+                <MagicCard className="max-w-4xl py-1">
+                    <div className="text-center mx-auto p-8">
+                        <div className="space-y-6 mb-12">
+                            <h1
+                                className="text-6xl md:text-8xl font-bold text-white tracking-tight animate-fade-up"
+                            >
+                                {texts['hero.title'] || "Puma's Band"}
+                            </h1>
+                            <p
+                                className="text-xl md:text-3xl text-white/90 leading-relaxed animate-fade-up animation-delay-100"
+                            >
+                                {texts['hero.subtitle'] || "Música en directo para eventos y todo tipo de fiestas"}
+                            </p>
+                        </div>
 
-                    <div
-                        className="flex justify-center gap-6 animate-fade-up animation-delay-300"
-                    >
-                        {
-                            socialLinks.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    className="text-white/80 hover:text-amber-500 transition-colors duration-300"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={link.name}
-                                >
-                                    <i className={`${link.icon} text-2xl`} />
-                                </a>
-                            ))
-                        }
+                        <div
+                            className="flex flex-col sm:flex-row gap-6 justify-center  animate-fade-up animation-delay-200 "
+                        >
+                            <AnimatedButton
+                                href={texts['hero.button1.href'] || "#contact"}
+                                className='bg-linear-to-r from-amber-500 to-orange-600 text-white'
+                                variant='default'
+                                size='default'
+                                glow={true}
+                                textEffect='normal'
+                                uppercase={true}
+                                rounded='custom'
+                                asChild={false}
+                                hideAnimations={false}
+                                shimmerColor='#D53B3C'
+                                shimmerSize='0.05em'
+                                shimmerDuration='3s'
+                                borderRadius='100px'
+                                background='rgba(0, 0, 0, 0.8)'
+                            >
+                                {texts['hero.button1.text'] || "Contáctanos"}
+                            </AnimatedButton>
+
+                            <a
+                                href={texts['hero.button2.href'] || "https://wa.me/123456789"}
+                                className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30 hover:bg-white/20 transition-all duration-300 inline-block"
+                            >
+                                {texts['hero.button2.text'] || "WhatsApp"}
+                            </a>
+                        </div>
+
+                        <div
+                            className="flex justify-center gap-6 animate-fade-up animation-delay-300"
+                        >
+                            {
+                                socialLinks.map((link) => (
+                                    <a
+                                        key={link.name}
+                                        href={link.href}
+                                        className="text-white/80 hover:text-amber-500 transition-colors duration-300"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={link.name}
+                                    >
+                                        <i className={`${link.icon} text-2xl`} />
+                                    </a>
+                                ))
+                            }
+                        </div>
                     </div>
-                </div>
+                </MagicCard>
 
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
                     <a
@@ -167,6 +173,14 @@ export function Hero({ texts = {}, media = {} }: HeroProps) {
                         </svg>
                     </a>
                 </div>
+
+                {/* Calendario de disponibilidad */}
+                <div className="absolute bottom-8 left-8 hidden lg:block animate-fade-up animation-delay-400">
+                    <AvailabilityCalendar events={bandEvents} />
+                </div>
+            </div>
+            <div className="lg:hidden items-center justify-center pt-10 pb-32 flex animate-fade-up animation-delay-400">
+                <AvailabilityCalendar events={bandEvents} />
             </div>
         </section>
     );

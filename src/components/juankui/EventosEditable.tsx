@@ -4,6 +4,8 @@ import { BentoCard, BentoGrid } from "../magicui/bento-grid";
 import { Section } from "./Section";
 import EditableText from "../EditableText";
 import EditableImageWithButton from "../EditableImageWithButton";
+import { AuroraText } from "../ui/aurora-text";
+import { AnimatedShinyText } from "../ui/animated-shiny-text";
 
 interface EventosEditableProps {
     texts?: Record<string, string>;
@@ -34,7 +36,7 @@ export function EventosEditable({ texts = {}, media = {} }: EventosEditableProps
             fecha: texts['evento1.fecha'] || "15 Diciembre 2024",
             lugarKey: 'evento1.lugar',
             lugar: texts['evento1.lugar'] || "Estadio Municipal",
-            href: "#contact",
+            href: "/contact",
             cta: "Reservar",
             background: (
                 <>
@@ -48,7 +50,7 @@ export function EventosEditable({ texts = {}, media = {} }: EventosEditableProps
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40 pointer-events-none" />
                 </>
             ),
-            className: "lg:row-start-1 lg:row-end-5 lg:col-start-2 lg:col-end-3",
+            className: "min-h-[400px] lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
         },
         {
             Icon: CalendarIcon,
@@ -60,7 +62,7 @@ export function EventosEditable({ texts = {}, media = {} }: EventosEditableProps
             fecha: texts['evento2.fecha'] || "8 Enero 2025",
             lugarKey: 'evento2.lugar',
             lugar: texts['evento2.lugar'] || "Café Central",
-            href: "#contact",
+            href: "/contact",
             cta: "Reservar",
             background: (
                 <>
@@ -85,7 +87,7 @@ export function EventosEditable({ texts = {}, media = {} }: EventosEditableProps
             fecha: texts['evento3.fecha'] || "Disponible",
             lugarKey: 'evento3.lugar',
             lugar: texts['evento3.lugar'] || "Tu Evento",
-            href: "#contact",
+            href: "/contact",
             cta: "Consultar",
             background: (
                 <>
@@ -99,7 +101,7 @@ export function EventosEditable({ texts = {}, media = {} }: EventosEditableProps
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40 pointer-events-none" />
                 </>
             ),
-            className: "lg:col-start-1 lg:col-end-2 lg:row-start-4 lg:row-end-5",
+            className: "lg:col-start-2 lg:col-end-3 lg:row-start-4 lg:row-end-7",
         },
         {
             Icon: TicketIcon,
@@ -111,7 +113,7 @@ export function EventosEditable({ texts = {}, media = {} }: EventosEditableProps
             fecha: texts['evento4.fecha'] || "22 Febrero 2025",
             lugarKey: 'evento4.lugar',
             lugar: texts['evento4.lugar'] || "Teatro Principal",
-            href: "#contact",
+            href: "/contact",
             cta: "Participar",
             background: (
                 <>
@@ -122,11 +124,52 @@ export function EventosEditable({ texts = {}, media = {} }: EventosEditableProps
                         className="absolute inset-0 w-full h-full object-cover opacity-70 brightness-75 contrast-170"
                         buttonZIndex="z-[5]"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20 pointer-events-none" />
                 </>
             ),
-            className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-5",
-        }
+            className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-7",
+        },
+        {
+            Icon: Music,
+            nameKey: 'eventos.description.only',
+            name: "",
+            descKey: 'eventos.logo.description',
+            description: texts['eventos.logo.description'] || "Tu banda de confianza",
+            fechaKey: 'eventos.description.fecha',
+            fecha: "",
+            lugarKey: 'eventos.description.lugar',
+            lugar: "",
+            href: "#",
+            cta: "",
+            background: <></>,
+            className: "lg:col-start-1 lg:col-end-2 lg:row-start-4 lg:row-end-5",
+        },
+        {
+            Icon: Music,
+            nameKey: 'eventos.logo.name',
+            name: texts['eventos.logo.name'] || "Puma's Band",
+            descKey: 'eventos.logo.description2',
+            description: texts['eventos.logo.description2'] || "",
+            fechaKey: 'eventos.logo.fecha',
+            fecha: texts['eventos.logo.fecha'] || "",
+            lugarKey: 'eventos.logo.lugar',
+            lugar: texts['eventos.logo.lugar'] || "",
+            href: "#",
+            cta: "",
+            background: (
+                <>
+                    <img
+                        src="/logo.png"
+                        alt="Puma's Band Logo"
+                        className="w-32 h-32 object-contain "
+                    />
+
+                </>
+            ),
+            className: "lg:col-start-1 lg:col-end-2 lg:row-start-5 lg:row-end-7",
+        },
+
+
     ];
 
     return (
@@ -146,52 +189,97 @@ export function EventosEditable({ texts = {}, media = {} }: EventosEditableProps
                 />
             </div>
 
-            <BentoGrid className="lg:grid-rows-4 h-full text-white">
-                {eventos.map((evento, idx) => (
-                    <div
-                        key={idx}
-                        className={`group relative col-span-3 flex flex-col justify-between overflow-hidden rounded-xl border border-white/10 shadow-lg ${evento.className}`}
-                    >
-                        <div className="absolute inset-0">{evento.background}</div>
-                        <div className="relative p-4 z-10">
-                            <div className="flex transform-gpu flex-col gap-1 transition-all duration-300 lg:group-hover:-translate-y-10">
-                                <evento.Icon className="h-12 w-12 origin-left transform-gpu transition-all duration-300 ease-in-out group-hover:scale-75" />
-                                <EditableText
-                                    textKey={evento.nameKey}
-                                    initialContent={evento.name}
-                                    className="text-xl font-semibold"
-                                    tag="h3"
-                                />
-                                <EditableText
-                                    textKey={evento.descKey}
-                                    initialContent={evento.description}
-                                    className="max-w-lg"
-                                    tag="p"
-                                />
+            <BentoGrid className="lg:grid-rows-6 h-full text-white">
+                {eventos.map((evento, idx) => {
+                    const isLogo = idx === eventos.length - 1;
+                    const isDescriptionOnly = idx === eventos.length - 2;
+
+                    if (isDescriptionOnly) {
+                        return (
+                            <div
+                                key={idx}
+                                className={` group relative col-span-3 flex flex-col justify-center items-center overflow-hidden rounded-xl ${evento.className}`}
+                            >
+                                <div className="relative z-10 flex items-center justify-center p-4">
+                                    <AuroraText
+                                        className="text-center text-5xl font-extrabold "
+                                    >
+                                        {evento.description}
+                                    </AuroraText>
+                                </div>
+                            </div>
+                        );
+                    }
+
+                    if (isLogo) {
+                        return (
+                            <div
+                                key={idx}
+                                className={`hover:bg-linear-to-br hover:from-black/90 hover:to-black/90 transition duration-300 hover:border-4 hover:border-amber-500 bg-linear-to-br from-amber-600 to-amber-700 group relative col-span-3 flex flex-col justify-center items-center overflow-hidden rounded-4xl border border-white/10 shadow-lg ${evento.className}`}
+                            >
+                                <div className="relative z-10 flex items-center justify-center gap-4 p-4">
+                                    <div className="flex items-center justify-center">{evento.background}</div>
+
+                                    <div className="flex flex-col">
+                                        <EditableText
+                                            textKey={evento.nameKey}
+                                            initialContent={evento.name}
+                                            className="text-6xl font-extrabold text-white"
+                                            tag="h3"
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    }
+
+                    return (
+                        <div
+                            key={idx}
+                            className={`group relative col-span-3 flex flex-col justify-end overflow-hidden rounded-xl border border-white/10 shadow-lg ${evento.className}`}
+                        >
+                            <div className="absolute inset-0">{evento.background}</div>
+                            <div className="relative p-4 z-10 group-hover:-translate-y-10 transition-all duration-300">
+                                <div className="flex transform-gpu flex-col gap-1 transition-all duration-300 ">
+                                    <evento.Icon className="h-12 w-12 origin-left transform-gpu transition-all duration-300 ease-in-out " />
+                                    <EditableText
+                                        textKey={evento.nameKey}
+                                        initialContent={evento.name}
+                                        className="text-xl font-semibold"
+                                        tag="h3"
+                                    />
+                                    <EditableText
+                                        textKey={evento.descKey}
+                                        initialContent={evento.description}
+                                        className="max-w-lg"
+                                        tag="p"
+                                    />
+                                </div>
+
+                                <div className="lg:hidden flex w-full translate-y-0 transform-gpu flex-row items-center transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 mt-4">
+                                    <a
+                                        href={evento.href}
+                                        className="text-white hover:underline "
+                                    >
+                                        {evento.cta}
+                                    </a>
+                                </div>
                             </div>
 
-                            <div className="lg:hidden flex w-full translate-y-0 transform-gpu flex-row items-center transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 mt-4">
+                            <div className="hidden  lg:flex absolute bottom-0 w-full translate-y-10 transform-gpu flex-row items-center p-5 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                                 <a
                                     href={evento.href}
-                                    className="text-white hover:underline"
+                                    className="text-white underline hover:text-amber-400"
                                 >
                                     {evento.cta}
                                 </a>
                             </div>
-                        </div>
 
-                        <div className="hidden lg:flex absolute bottom-0 w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                            <a
-                                href={evento.href}
-                                className="text-white hover:underline"
-                            >
-                                {evento.cta}
-                            </a>
+                            <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03]" />
                         </div>
-
-                        <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03]" />
-                    </div>
-                ))}
+                    );
+                })}
             </BentoGrid>
         </Section>
     );

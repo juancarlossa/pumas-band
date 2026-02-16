@@ -1,6 +1,6 @@
 ---
 import { isAuthenticated } from "@/lib/auth";
-import { getAllTexts, getAllMedia } from "@/lib/db";
+import { getAllTexts, getAllMedia, getAllCalendarEvents } from "@/lib/db";
 import BaseHead from "@/components/BaseHead.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
@@ -9,6 +9,7 @@ import { HeroEditable } from "@/components/main/HeroEditable";
 import { CarouselEditable } from "@/components/juankui/CarouselEditable";
 import { EventosEditable } from "@/components/juankui/EventosEditable";
 import { ServicesEditable } from "@/components/main/ServicesEditable";
+import { AdminCalendar } from "@/components/admin/AdminCalendar";
 
 export const prerender = false;
 
@@ -20,6 +21,7 @@ if (!authenticated) {
 
 let textsMap: Record<string, string> = {};
 let mediaMap: Record<string, { url: string; type: string; alt?: string }> = {};
+let calendarEvents: any[] = [];
 
 try {
     const allTexts = await getAllTexts();
@@ -32,8 +34,17 @@ try {
             { url: m.url, type: m.type, alt: m.alt_text || "" },
         ]),
     );
+
+    const events = await getAllCalendarEvents();
+    calendarEvents = events.map((e) => ({
+        id: e.id,
+        date: new Date(e.event_date),
+        isBusy: e.is_busy,
+        titulo: e.titulo,
+        descripcion: e.descripcion || "",
+    }));
 } catch (error) {
-    console.error("Error loading texts/media:", error);
+    console.error("Error loading texts/media/events:", error);
 }
 ---
 
@@ -57,11 +68,28 @@ try {
             </button>
         </div>
 
-        <main class="w-full flex flex-col flex-1 justify-center items-center">
-            <HeroEditable client:load texts={textsMap} media={mediaMap} />
-            <CarouselEditable client:load texts={textsMap} media={mediaMap} />
-            <EventosEditable client:load texts={textsMap} media={mediaMap} />
-            <ServicesEditable client:load texts={textsMap} />
+        <main
+            class="w-full flex flex-col flex-1 justify-center items-center gap-8"
+        >
+            <section class="w-full">
+                <HeroEditable
+                    client:load
+                    texts={textsMap}
+                    media={mediaMap}
+                    calendarEvents={calendarEvents}
+                />
+                <CarouselEditable
+                    client:load
+                    texts={textsMap}
+                    media={mediaMap}
+                />
+                <EventosEditable
+                    client:load
+                    texts={textsMap}
+                    media={mediaMap}
+                />
+                <ServicesEditable client:load texts={textsMap} />
+            </section>
         </main>
 
         <Footer />
