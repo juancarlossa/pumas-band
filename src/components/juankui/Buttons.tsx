@@ -45,7 +45,7 @@ export function ButtonGhost({ children }: { children: React.ReactNode }) {
             href="#repertorio"
             className="group bg-white/10 backdrop-blur-sm text-white border border-white/20 px-8 py-4 font-medium text-lg tracking-wide rounded-lg shadow-xl inline-flex items-center justify-center gap-2 hover:bg-white/20 hover:scale-105 transition-all duration-300"
         >
-            <span>VER REPERTORIO</span>
+            <span>WhatsApp</span>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-5 h-5 group-hover:translate-x-1 transition-transform"

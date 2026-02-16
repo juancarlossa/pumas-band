@@ -4,6 +4,19 @@ import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import Main from "@/components/main/Main.astro";
+import { getAllTexts, getAllMedia } from "@/lib/db";
+
+// Cargar textos y medios desde la base de datos
+const texts = await getAllTexts();
+const textsMap = Object.fromEntries(texts.map((t) => [t.key, t.content]));
+
+const media = await getAllMedia();
+const mediaMap = Object.fromEntries(
+	media.map((m) => [
+		m.key,
+		{ url: m.url, type: m.type, alt: m.alt_text || "" },
+	]),
+);
 ---
 
 <!doctype html>
@@ -11,7 +24,7 @@ import Main from "@/components/main/Main.astro";
 	<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	<body class="w-full flex flex-col justify-center items-center">
 		<Header />
-		<Main />
+		<Main texts={textsMap} media={mediaMap} />
 		<Footer />
 	</body>
 </html>

@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ButtonCta, ButtonGhost } from "../juankui/Buttons";
-
-interface HeroProps {
-    texts?: Record<string, string>;
-    media?: Record<string, { url: string; type: string; alt?: string }>;
-}
+import EditableText from "../EditableText";
+import EditableButton from "../EditableButton";
+import EditableVideoWithButton from "../EditableVideoWithButton";
 
 const defaultVideos = [
     { src: "/videos/IMG_0056.webm", cols: 3, key: "hero.video1" },
@@ -19,7 +17,12 @@ const socialLinks = [
     { name: "WhatsApp", href: "#", icon: "i-mdi-whatsapp" },
 ];
 
-export function Hero({ texts = {}, media = {} }: HeroProps) {
+interface HeroEditableProps {
+    texts?: Record<string, string>;
+    media?: Record<string, { url: string; type: string; alt?: string }>;
+}
+
+export function HeroEditable({ texts = {}, media = {} }: HeroEditableProps) {
     // Combinar videos por defecto con los de la base de datos
     const videos = defaultVideos.map(v => ({
         ...v,
@@ -33,7 +36,6 @@ export function Hero({ texts = {}, media = {} }: HeroProps) {
         videoRefs.current = Array.from({ length: videos.length }, () => undefined);
     }, []);
 
-    // Cambiar video cada 8 segundos
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentVideo((prev) => (prev + 1) % videos.length);
@@ -42,7 +44,6 @@ export function Hero({ texts = {}, media = {} }: HeroProps) {
         return () => clearInterval(interval);
     }, []);
 
-    // Asegurar autoplay en cada cambio
     useEffect(() => {
         const current = videoRefs.current[currentVideo];
         if (current) {
@@ -65,71 +66,54 @@ export function Hero({ texts = {}, media = {} }: HeroProps) {
                                         video.cols === 4 ? 'col-span-4' : 'col-span-1'
                                     }`}
                             >
-                                <video
-                                    ref={(el) => {
-                                        if (el) {
-                                            videoRefs.current[index] = el;
-                                        }
-                                    }}
-                                    className="h-full w-full object-cover transform  transition-transform duration-300"
-                                    muted
-                                    loop
-                                    autoPlay
-                                    playsInline
-                                    preload="auto"
-                                    data-video-index={index}
-                                >
-                                    <source src={video.src} type="video/webm" />
-                                </video>
+                                <EditableVideoWithButton
+                                    mediaKey={video.key}
+                                    initialUrl={video.src}
+                                    className="h-full w-full object-cover transform transition-transform duration-300"
+                                />
                             </div>
                         ))
                     }
                 </div>
             </div>
 
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
 
-            <div
-                className="absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-black/80"
-            >
-            </div>
-
-            <div
-                className="relative z-10 flex items-center justify-center min-h-screen px-4"
-            >
+            <div className="relative z-10 flex items-center justify-center min-h-screen px-4">
                 <div className="text-center max-w-4xl mx-auto">
                     <div className="space-y-6 mb-12">
-                        <h1
+                        <EditableText
+                            textKey="hero.title"
+                            initialContent={texts['hero.title'] || "Puma's Band"}
                             className="text-6xl md:text-8xl font-bold text-white tracking-tight animate-fade-up"
-                        >
-                            {texts['hero.title'] || "Puma's Band"}
-                        </h1>
-                        <p
+                            tag="h1"
+                        />
+                        <EditableText
+                            textKey="hero.subtitle"
+                            initialContent={texts['hero.subtitle'] || "Música en directo para eventos y todo tipo de fiestas"}
                             className="text-xl md:text-3xl text-white/90 leading-relaxed animate-fade-up animation-delay-100"
-                        >
-                            {texts['hero.subtitle'] || "Música en directo para eventos y todo tipo de fiestas"}
-                        </p>
+                            tag="p"
+                        />
                     </div>
 
-                    <div
-                        className="flex flex-col sm:flex-row gap-6 justify-center mb-12 animate-fade-up animation-delay-200"
-                    >
-                        <a
-                            href={texts['hero.button1.href'] || "#contact"}
-                            className="bg-gradient-to-r from-amber-500 to-orange-600 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-block"
-                        >
-                            {texts['hero.button1.text'] || "Contáctanos"}
-                        </a>
-                        <a
-                            href={texts['hero.button2.href'] || "https://wa.me/123456789"}
-                            className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30 hover:bg-white/20 transition-all duration-300 inline-block"
-                        >
-                            {texts['hero.button2.text'] || "WhatsApp"}
-                        </a>
+                    <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12 animate-fade-up animation-delay-200">
+                        <EditableButton
+                            textKey="hero.button1.text"
+                            hrefKey="hero.button1.href"
+                            initialText={texts['hero.button1.text'] || "Contáctanos"}
+                            initialHref={texts['hero.button1.href'] || "#contact"}
+                            className="bg-linear-to-r from-amber-500 to-orange-600 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                        />
+                        <EditableButton
+                            textKey="hero.button2.text"
+                            hrefKey="hero.button2.href"
+                            initialText={texts['hero.button2.text'] || "WhatsApp"}
+                            initialHref={texts['hero.button2.href'] || "https://wa.me/123456789"}
+                            className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30 hover:bg-white/20 transition-all duration-300"
+                        />
                     </div>
 
-                    <div
-                        className="flex justify-center gap-6 animate-fade-up animation-delay-300"
-                    >
+                    <div className="flex justify-center gap-6 animate-fade-up animation-delay-300">
                         {
                             socialLinks.map((link) => (
                                 <a
@@ -163,15 +147,12 @@ export function Hero({ texts = {}, media = {} }: HeroProps) {
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                                 strokeWidth="2"
-                                d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                            ></path>
                         </svg>
                     </a>
                 </div>
             </div>
         </section>
     );
-};
-
-
-
-
+}

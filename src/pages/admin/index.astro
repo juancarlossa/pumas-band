@@ -1,0 +1,89 @@
+---
+import { isAuthenticated } from "@/lib/auth";
+import { getAllTexts, getAllMedia } from "@/lib/db";
+import BaseHead from "@/components/BaseHead.astro";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import { SITE_DESCRIPTION } from "@/consts";
+import { HeroEditable } from "@/components/main/HeroEditable";
+import { CarouselEditable } from "@/components/juankui/CarouselEditable";
+import { EventosEditable } from "@/components/juankui/EventosEditable";
+import { ServicesEditable } from "@/components/main/ServicesEditable";
+
+export const prerender = false;
+
+const authenticated = await isAuthenticated(Astro.cookies);
+
+if (!authenticated) {
+    return Astro.redirect("/admin/login");
+}
+
+let textsMap: Record<string, string> = {};
+let mediaMap: Record<string, { url: string; type: string; alt?: string }> = {};
+
+try {
+    const allTexts = await getAllTexts();
+    textsMap = Object.fromEntries(allTexts.map((t) => [t.key, t.content]));
+
+    const allMedia = await getAllMedia();
+    mediaMap = Object.fromEntries(
+        allMedia.map((m) => [
+            m.key,
+            { url: m.url, type: m.type, alt: m.alt_text || "" },
+        ]),
+    );
+} catch (error) {
+    console.error("Error loading texts/media:", error);
+}
+---
+
+<!doctype html>
+<html lang="es">
+    <BaseHead title="Admin - Puma's Band" description={SITE_DESCRIPTION} />
+    <body class="w-full flex flex-col justify-center items-center">
+        <Header />
+
+        <div class="fixed top-20 right-4 z-50 flex gap-2">
+            <div
+                class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-lg shadow-lg font-semibold"
+            >
+                Modo Edición - Doble click para editar
+            </div>
+            <button
+                id="logoutBtn"
+                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg font-semibold transition-colors"
+            >
+                Cerrar Sesión
+            </button>
+        </div>
+
+        <main class="w-full flex flex-col flex-1 justify-center items-center">
+            <HeroEditable client:load texts={textsMap} media={mediaMap} />
+            <CarouselEditable client:load texts={textsMap} media={mediaMap} />
+            <EventosEditable client:load texts={textsMap} media={mediaMap} />
+            <ServicesEditable client:load texts={textsMap} />
+        </main>
+
+        <Footer />
+
+        <script>
+            const logoutBtn = document.getElementById("logoutBtn");
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", async () => {
+                    try {
+                        const response = await fetch("/api/auth/logout", {
+                            method: "POST",
+                        });
+
+                        if (response.ok) {
+                            window.location.href = "/admin/login";
+                        }
+                    } catch (error) {
+                        console.error("Logout error:", error);
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

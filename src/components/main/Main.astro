@@ -5,11 +5,18 @@ import { Services } from "./Services";
 import Bio from "./Bio.astro";
 import { CarouselFull } from "../juankui/Carousel";
 import { Eventos } from "../juankui/Eventos";
+
+interface Props {
+    texts?: Record<string, string>;
+    media?: Record<string, { url: string; type: string; alt?: string }>;
+}
+
+const { texts = {}, media = {} } = Astro.props;
 ---
 
 <main class="w-full flex flex-col flex-1 justify-center items-center">
-    <Hero client:idle />
-    <CarouselFull client:idle />
-    <Eventos client:idle />
-    <Services client:idle />
+    <Hero client:idle texts={texts} media={media} />
+    <CarouselFull client:idle texts={texts} media={media} />
+    <Eventos client:idle texts={texts} media={media} />
+    <Services client:idle texts={texts} />
 </main>
