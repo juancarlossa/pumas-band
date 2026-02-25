@@ -28,12 +28,12 @@ const calendarEvents = await getAllCalendarEvents();
 	<body
 		class="w-full overflow-x-hidden flex flex-col justify-center items-center"
 	>
-		<Header />
+		<Header texts={textsMap} />
 		<Main
 			texts={textsMap}
 			media={mediaMap}
 			calendarEvents={calendarEvents}
 		/>
-		<Footer />
+		<Footer texts={textsMap} />
 	</body>
 </html>

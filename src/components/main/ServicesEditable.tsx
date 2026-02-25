@@ -1,14 +1,14 @@
-import { Title } from "../juankui/Title";
 import { Section } from "../juankui/Section";
-import { ButtonCta } from "../juankui/Buttons";
 import EditableText from "../EditableText";
-import EditableButton from "../EditableButton";
+import EditableServiceCard from "../EditableServiceCard";
+import { ContactFormEditable } from "../juankui/ContactFormEditable";
 
 interface ServicesEditableProps {
     texts?: Record<string, string>;
+    media?: Record<string, { url: string; type: string; alt?: string }>;
 }
 
-export function ServicesEditable({ texts = {} }: ServicesEditableProps) {
+export function ServicesEditable({ texts = {}, media = {} }: ServicesEditableProps) {
     const servicePacks = [
         {
             nameKey: 'service.pack1.name',
@@ -69,51 +69,43 @@ export function ServicesEditable({ texts = {} }: ServicesEditableProps) {
 
                 {/* Service Cards Grid */}
                 <div className="grid grid-cols-2 gap-5">
-                    {servicePacks.map((pack) => (
-                        <div
-                            key={pack.nameKey}
-                            className="relative rounded-2xl p-8 shadow-lg transition-all duration-300 hover:shadow-xl bg-white border border-gray-200"
-                        >
-                            <div className="text-center mb-6">
-                                <EditableText
-                                    textKey={pack.nameKey}
-                                    initialContent={pack.name}
-                                    className="text-2xl font-bold mb-2 text-gray-900"
-                                    tag="h3"
-                                />
-                                <EditableText
-                                    textKey={pack.descKey}
-                                    initialContent={pack.description}
-                                    className="text-gray-600"
-                                    tag="p"
-                                />
-                            </div>
-                        </div>
-                    ))}
+                    {servicePacks.map((pack, index) => {
+                        const imageKey = `service.pack${index + 1}.image`;
+                        const imageUrl = media[imageKey]?.url || '';
+
+                        return (
+                            <EditableServiceCard
+                                key={pack.nameKey}
+                                nameKey={pack.nameKey}
+                                descKey={pack.descKey}
+                                imageKey={imageKey}
+                                name={pack.name}
+                                description={pack.description}
+                                imageUrl={imageUrl}
+                            />
+                        );
+                    })}
                 </div>
 
                 {/* Call to Action Section */}
-                <div className="text-center bg-gradient-to-br from-slate-900 via-gray-900 to-black rounded-3xl p-12 shadow-2xl mt-8">
-                    <EditableText
-                        textKey="services.cta.title"
-                        initialContent={texts['services.cta.title'] || "¿Listo para crear momentos mágicos?"}
-                        className="text-5xl font-bold bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent mb-5"
-                        tag="h3"
-                    />
-                    <div className="w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full mx-auto mb-8"></div>
-                    <EditableText
-                        textKey="services.cta.description"
-                        initialContent={texts['services.cta.description'] || "Diseñamos experiencias musicales únicas que se ajustan a tu estilo, ambiente y presupuesto."}
-                        className="text-xl text-white/90 mb-8 max-w-2xl mx-auto"
-                        tag="p"
-                    />
-                    <EditableButton
-                        textKey="services.cta.button.text"
-                        hrefKey="services.cta.button.href"
-                        initialText={texts['services.cta.button.text'] || "Contactar"}
-                        initialHref={texts['services.cta.button.href'] || "#contact"}
-                        className="bg-gradient-to-r from-amber-500 to-orange-600 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-block"
-                    />
+                <div id="contact" className="bg-linear-to-br from-slate-900 via-gray-900 to-black rounded-3xl p-8 md:p-12 shadow-2xl border border-amber-500/20 mt-8">
+                    <div className="text-center mb-8">
+                        <EditableText
+                            textKey="services.cta.title"
+                            initialContent={texts['services.cta.title'] || "¿Listo para crear momentos mágicos?"}
+                            className="text-4xl md:text-5xl font-bold bg-linear-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent mb-5"
+                            tag="h3"
+                        />
+                        <div className="w-24 h-1 bg-linear-to-r from-amber-400 to-orange-500 rounded-full mx-auto mb-6"></div>
+                        <EditableText
+                            textKey="services.cta.description"
+                            initialContent={texts['services.cta.description'] || "Diseñamos experiencias musicales únicas que se ajustan a tu estilo, ambiente y presupuesto. Cada evento merece su propia banda sonora especial."}
+                            className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto"
+                            tag="p"
+                        />
+                    </div>
+
+                    <ContactFormEditable texts={texts} />
                 </div>
             </div>
         </Section>

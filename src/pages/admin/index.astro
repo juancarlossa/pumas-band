@@ -2,10 +2,11 @@
 import { isAuthenticated } from "@/lib/auth";
 import { getAllTexts, getAllMedia, getAllCalendarEvents } from "@/lib/db";
 import BaseHead from "@/components/BaseHead.astro";
-import Footer from "@/components/Footer.astro";
-import Header from "@/components/Header.astro";
 import { SITE_DESCRIPTION } from "@/consts";
+import { HeaderEditable } from "@/components/HeaderEditable";
+import { FooterEditable } from "@/components/FooterEditable";
 import { HeroEditable } from "@/components/main/HeroEditable";
+import { NosotrosEditable } from "@/components/main/NosotrosEditable";
 import { CarouselEditable } from "@/components/juankui/CarouselEditable";
 import { EventosEditable } from "@/components/juankui/EventosEditable";
 import { ServicesEditable } from "@/components/main/ServicesEditable";
@@ -52,7 +53,7 @@ try {
 <html lang="es">
     <BaseHead title="Admin - Puma's Band" description={SITE_DESCRIPTION} />
     <body class="w-full flex flex-col justify-center items-center">
-        <Header />
+        <HeaderEditable client:load texts={textsMap} />
 
         <div class="fixed top-20 right-4 z-50 flex gap-2">
             <div
@@ -78,6 +79,11 @@ try {
                     media={mediaMap}
                     calendarEvents={calendarEvents}
                 />
+                <NosotrosEditable
+                    client:load
+                    texts={textsMap}
+                    media={mediaMap}
+                />
                 <CarouselEditable
                     client:load
                     texts={textsMap}
@@ -88,11 +94,15 @@ try {
                     texts={textsMap}
                     media={mediaMap}
                 />
-                <ServicesEditable client:load texts={textsMap} />
+                <ServicesEditable
+                    client:load
+                    texts={textsMap}
+                    media={mediaMap}
+                />
             </section>
         </main>
 
-        <Footer />
+        <FooterEditable client:load texts={textsMap} />
 
         <script>
             const logoutBtn = document.getElementById("logoutBtn");

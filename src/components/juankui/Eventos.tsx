@@ -73,8 +73,8 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                         src={photos[1].src}
                         alt={photos[1].alt}
                         className="absolute inset-0 w-full h-full object-cover 
-                        opacity-80 brightness-150 contrast-100 saturate-80 
-                        group-hover:brightness-200 group-hover:contrast-100 group-hover:saturate-100 
+                        opacity-80  contrast-100  
+                         group-hover:contrast-100 group-hover:saturate-100 
                         transition-all duration-300"
                     />
                     <div className="absolute inset-0 bg-linear-to-b
@@ -167,7 +167,7 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
     ];
 
     return (
-        <Section>
+        <div>
             <div className=" text-center mb-8">
                 <Title
                     title={texts['eventos.title'] || "Nuestros Eventos"}
@@ -220,6 +220,6 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                     return <BentoCard key={idx} {...evento} />;
                 })}
             </BentoGrid>
-        </Section>
+        </div>
     );
 }

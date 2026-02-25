@@ -204,7 +204,7 @@ export default function EditableImageWithButton({
             {/* Botón de edición siempre visible en el centro */}
             <button
                 onClick={handleEditClick}
-                className={`cursor-pointer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${buttonZIndex} bg-gradient-to-r from-indigo-800 to-purple-800 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors`}
+                className={`cursor-pointer absolute top-15 left-1/2 -translate-x-1/2 -translate-y-1/2 ${buttonZIndex} bg-gradient-to-r from-indigo-800 to-purple-800 hover:to-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors`}
                 title="Editar imagen"
             >
                 <div className="flex items-center gap-2">

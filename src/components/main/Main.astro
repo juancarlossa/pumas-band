@@ -5,6 +5,7 @@ import { Services } from "./Services";
 import Bio from "./Bio.astro";
 import { CarouselFull } from "../juankui/Carousel";
 import { Eventos } from "../juankui/Eventos";
+import { Nosotros } from "./Nosotros";
 import type { CalendarEvent } from "@/lib/db";
 
 interface Props {
@@ -23,7 +24,8 @@ const { texts = {}, media = {}, calendarEvents = [] } = Astro.props;
         media={media}
         calendarEvents={calendarEvents}
     />
+    <Nosotros client:idle texts={texts} media={media} />
     <CarouselFull client:idle texts={texts} media={media} />
     <Eventos client:idle texts={texts} media={media} />
-    <Services client:idle texts={texts} />
+    <Services client:idle texts={texts} media={media} />
 </main>

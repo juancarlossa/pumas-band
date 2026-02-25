@@ -8,10 +8,10 @@ const DEFAULT_GLOW_COLOR = '251, 191, 36';
 const MOBILE_BREAKPOINT = 768;
 
 interface ServiceCard {
-  color: string;
   title: string;
   description: string;
   label: string;
+  backgroundImage?: string;
 }
 
 interface ServicesMagicBentoProps {
@@ -27,6 +27,7 @@ interface ServicesMagicBentoProps {
   glowColor?: string;
   clickEffect?: boolean;
   enableMagnetism?: boolean;
+  cardColor?: string;
 }
 
 
@@ -434,7 +435,7 @@ const GlobalSpotlight = ({
 };
 
 const BentoCardGrid = ({ children, gridRef }: any) => (
-  <div className="card-grid bento-section" ref={gridRef}>
+  <div className="card-grid py-5 bento-section" ref={gridRef}>
     {children}
   </div>
 );
@@ -466,7 +467,8 @@ export const ServicesMagicBento = ({
   enableTilt = false,
   glowColor = DEFAULT_GLOW_COLOR,
   clickEffect = true,
-  enableMagnetism = true
+  enableMagnetism = true,
+  cardColor = '#5c0202'
 }: ServicesMagicBentoProps) => {
   const gridRef = useRef(null);
   const isMobile = useMobileDetection();
@@ -490,7 +492,10 @@ export const ServicesMagicBento = ({
           const cardProps = {
             className: baseClassName,
             style: {
-              backgroundColor: card.color,
+              backgroundColor: card.backgroundImage ? 'transparent' : cardColor,
+              backgroundImage: card.backgroundImage ? `url(${card.backgroundImage})` : 'none',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
               '--glow-color': glowColor
             } as React.CSSProperties
           };

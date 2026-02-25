@@ -1,10 +1,30 @@
 ---
+interface Props {
+	texts?: Record<string, string>;
+}
+
+const { texts = {} } = Astro.props;
+
 const links = [
-	{ name: "Inicio", href: "#hero" },
-	{ name: "Nosotros", href: "#about" },
-	{ name: "Repertorio", href: "#services" },
-	{ name: "Reservas", href: "#contact" },
+	{
+		name: texts["nav.link1.name"] || "Inicio",
+		href: texts["nav.link1.href"] || "#hero",
+	},
+	{
+		name: texts["nav.link2.name"] || "Nosotros",
+		href: texts["nav.link2.href"] || "#nosotros",
+	},
+	{
+		name: texts["nav.link3.name"] || "Galeria",
+		href: texts["nav.link3.href"] || "#galeria",
+	},
+	{
+		name: texts["nav.link4.name"] || "Reservas",
+		href: texts["nav.link4.href"] || "#contact",
+	},
 ];
+
+const logoText = texts["nav.logo.text"] || "Puma's Band";
 ---
 
 <header
@@ -26,7 +46,7 @@ const links = [
 					<span
 						class="text-white text-xl md:text-2xl font-semibold hidden sm:block"
 					>
-						Puma's Band
+						{logoText}
 					</span>
 				</a>
 			</div>

@@ -179,7 +179,7 @@ export function Hero({ texts = {}, media = {}, calendarEvents = [] }: HeroProps)
                     <AvailabilityCalendar events={bandEvents} />
                 </div>
             </div>
-            <div className="lg:hidden items-center justify-center pt-10 pb-32 flex animate-fade-up animation-delay-400">
+            <div className="lg:hidden items-center justify-center pt-10 pb-10 flex animate-fade-up animation-delay-400">
                 <AvailabilityCalendar events={bandEvents} />
             </div>
         </section>

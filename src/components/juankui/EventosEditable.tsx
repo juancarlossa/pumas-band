@@ -70,7 +70,7 @@ export function EventosEditable({ texts = {}, media = {} }: EventosEditableProps
                         mediaKey={photos[1].key}
                         initialUrl={photos[1].src}
                         alt={photos[1].alt}
-                        className="absolute inset-0 w-full h-full object-cover brightness-90 contrast-150 saturate-50"
+                        className="absolute inset-0 w-full h-full object-cover"
                         buttonZIndex="z-[5]"
                     />
                 </>
