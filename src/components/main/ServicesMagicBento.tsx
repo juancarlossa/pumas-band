@@ -512,10 +512,13 @@ export const ServicesMagicBento = ({
                 clickEffect={clickEffect}
                 enableMagnetism={enableMagnetism}
               >
-                <div className="magic-bento-card__header">
-                  <div className="magic-bento-card__label">{card.label}</div>
+                {/* Overlay oscuro para mejorar legibilidad */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/100 rounded-2xl pointer-events-none z-0"></div>
+
+                <div className="bg-red-700 rounded-full h-fit px-3 py-2 w-fit z-99 flex justify-center items-center">
+                  <span className="text-sm text-white">{card.label}</span>
                 </div>
-                <div className="magic-bento-card__content">
+                <div className="magic-bento-card__content relative z-10">
                   <h2 className="magic-bento-card__title">{card.title}</h2>
                   <p className="magic-bento-card__description">{card.description}</p>
                 </div>
@@ -525,10 +528,13 @@ export const ServicesMagicBento = ({
 
           return (
             <div key={index} {...cardProps}>
-              <div className="magic-bento-card__header">
+              {/* Overlay oscuro para mejorar legibilidad */}
+              <div className="absolute inset-0 bg-black/40 rounded-2xl pointer-events-none z-0"></div>
+
+              <div className="magic-bento-card__header relative z-10">
                 <div className="magic-bento-card__label">{card.label}</div>
               </div>
-              <div className="magic-bento-card__content">
+              <div className="magic-bento-card__content relative z-10">
                 <h2 className="magic-bento-card__title">{card.title}</h2>
                 <p className="magic-bento-card__description">{card.description}</p>
               </div>

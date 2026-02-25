@@ -11,6 +11,24 @@ interface HeroProps {
     calendarEvents?: CalendarEvent[];
 }
 
+// Hook para detectar móvil
+const useMobileDetection = () => {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    return isMobile;
+};
+
 const defaultVideos = [
     { src: "/videos/IMG_0056.webm", cols: 3, key: "hero.video1" },
     { src: "/videos/IMG_2632.webm", cols: 2, key: "hero.video2" },
@@ -25,6 +43,8 @@ const socialLinks = [
 ];
 
 export function Hero({ texts = {}, media = {}, calendarEvents = [] }: HeroProps) {
+    const isMobile = useMobileDetection();
+
     // Combinar videos por defecto con los de la base de datos
     const videos = defaultVideos.map(v => ({
         ...v,
@@ -67,20 +87,37 @@ export function Hero({ texts = {}, media = {}, calendarEvents = [] }: HeroProps)
 
     return (
         <section id="hero" className="relative w-full overflow-hidden">
-            <div className="absolute inset-0">
-                <HeroMagicBento
-                    videos={videos}
-                    videoRefs={videoRefs}
-                    textAutoHide={false}
-                    enableStars={true}
-                    enableSpotlight={true}
-                    enableBorderGlow={true}
-                    enableTilt={false}
-                    clickEffect={true}
-                    enableMagnetism={true}
-                    glowColor="251, 191, 36"
-                />
-            </div>
+            {/* Fondo optimizado según dispositivo */}
+            {isMobile ? (
+                // Fondo simple para móvil - solo un video estático sin efectos
+                <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black">
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover opacity-30"
+                    >
+                        <source src={videos[0].src} type="video/webm" />
+                    </video>
+                </div>
+            ) : (
+                // Fondo completo con efectos para desktop
+                <div className="absolute inset-0">
+                    <HeroMagicBento
+                        videos={videos}
+                        videoRefs={videoRefs}
+                        textAutoHide={false}
+                        enableStars={true}
+                        enableSpotlight={true}
+                        enableBorderGlow={true}
+                        enableTilt={false}
+                        clickEffect={true}
+                        enableMagnetism={true}
+                        glowColor="251, 191, 36"
+                    />
+                </div>
+            )}
 
             <div
                 className="relative z-10 flex items-center justify-center min-h-screen px-4"
@@ -109,12 +146,12 @@ export function Hero({ texts = {}, media = {}, calendarEvents = [] }: HeroProps)
                                 className='bg-linear-to-r from-amber-500 to-orange-600 text-white'
                                 variant='default'
                                 size='default'
-                                glow={true}
+                                glow={!isMobile}
                                 textEffect='normal'
                                 uppercase={true}
                                 rounded='custom'
                                 asChild={false}
-                                hideAnimations={false}
+                                hideAnimations={isMobile}
                                 shimmerColor='#D53B3C'
                                 shimmerSize='0.05em'
                                 shimmerDuration='3s'

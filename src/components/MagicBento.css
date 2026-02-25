@@ -69,7 +69,7 @@
 .magic-bento-card__title,
 .magic-bento-card__description {
   --clamp-title: 1;
-  --clamp-desc: 2;
+  --clamp-desc: 3;
 }
 
 .magic-bento-card__title {
@@ -79,7 +79,7 @@
 }
 
 .magic-bento-card__description {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.2;
   opacity: 0.9;
 }
