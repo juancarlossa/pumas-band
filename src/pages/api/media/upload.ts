@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { v2 as cloudinary } from 'cloudinary';
 import { sql } from '@/lib/db';
 
-const CLOUDINARY_URL = import.meta.env.CLOUDINARY_URL;
+const CLOUDINARY_URL = process.env.CLOUDINARY_URL || import.meta.env.CLOUDINARY_URL;
 
 if (!CLOUDINARY_URL) {
     throw new Error('CLOUDINARY_URL no está configurado en .env');
