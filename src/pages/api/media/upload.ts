@@ -21,13 +21,24 @@ cloudinary.config({
 
 export const POST: APIRoute = async ({ request }) => {
     try {
+        console.log('=== INICIO UPLOAD ===');
+        console.log('CLOUDINARY_URL exists:', !!CLOUDINARY_URL);
+        console.log('Cloud name:', cloudName);
+        console.log('API Key:', apiKey ? 'SET' : 'NOT SET');
+        console.log('API Secret:', apiSecret ? 'SET' : 'NOT SET');
+
         const formData = await request.formData();
         const file = formData.get('file') as File;
         const mediaKey = formData.get('key') as string;
         const mediaType = formData.get('type') as string;
         const altText = formData.get('alt_text') as string | null;
 
+        console.log('File:', file?.name, file?.type, file?.size);
+        console.log('Media key:', mediaKey);
+        console.log('Media type:', mediaType);
+
         if (!file || !mediaKey || !mediaType) {
+            console.error('Faltan datos requeridos');
             return new Response(JSON.stringify({ error: 'Faltan datos requeridos' }), {
                 status: 400,
                 headers: { 'Content-Type': 'application/json' },
@@ -44,15 +55,23 @@ export const POST: APIRoute = async ({ request }) => {
             public_id: mediaKey.replace(/\./g, '_'),
         };
 
+        console.log('Upload options:', uploadOptions);
+        console.log('Iniciando upload a Cloudinary...');
+
         const result = await cloudinary.uploader.upload(base64File, uploadOptions);
 
+        console.log('Upload exitoso:', result.secure_url);
+
         // Guardar en la base de datos con alt_text
+        console.log('Guardando en base de datos...');
         await sql`
             INSERT INTO editable_media (key, url, type, section, alt_text, updated_at)
             VALUES (${mediaKey}, ${result.secure_url}, ${mediaType}, ${mediaKey.split('.')[0]}, ${altText}, NOW())
             ON CONFLICT (key) 
             DO UPDATE SET url = ${result.secure_url}, alt_text = ${altText}, updated_at = NOW()
         `;
+
+        console.log('Guardado en DB exitoso');
 
         return new Response(
             JSON.stringify({
@@ -66,9 +85,17 @@ export const POST: APIRoute = async ({ request }) => {
             }
         );
     } catch (error) {
-        console.error('Error al subir a Cloudinary:', error);
+        console.error('=== ERROR COMPLETO ===');
+        console.error('Error type:', error?.constructor?.name);
+        console.error('Error message:', error instanceof Error ? error.message : String(error));
+        console.error('Error stack:', error instanceof Error ? error.stack : 'No stack');
+        console.error('Error object:', JSON.stringify(error, null, 2));
+
         return new Response(
-            JSON.stringify({ error: 'Error al subir el archivo' }),
+            JSON.stringify({
+                error: 'Error al subir el archivo',
+                details: error instanceof Error ? error.message : String(error)
+            }),
             {
                 status: 500,
                 headers: { 'Content-Type': 'application/json' },

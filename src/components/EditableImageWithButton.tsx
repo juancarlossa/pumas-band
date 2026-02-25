@@ -58,11 +58,12 @@ export default function EditableImageWithButton({
                 body: formData,
             });
 
-            if (!response.ok) {
-                throw new Error('Error al subir la imagen');
-            }
-
             const data = await response.json();
+
+            if (!response.ok) {
+                console.error('Error del servidor:', data);
+                throw new Error(data.details || data.error || 'Error al subir la imagen');
+            }
             setImageUrl(data.url);
             if (onAltChange) {
                 onAltChange(altText);
@@ -73,8 +74,9 @@ export default function EditableImageWithButton({
                 window.location.reload();
             }, 500);
         } catch (error) {
-            console.error('Error:', error);
-            alert('Error al subir la imagen. Intenta de nuevo.');
+            console.error('Error completo:', error);
+            const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+            alert(`Error al subir la imagen: ${errorMessage}`);
         } finally {
             setIsUploading(false);
         }
