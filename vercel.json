@@ -1,14 +1,3 @@
 {
-  "functions": {
-    "src/pages/api/media/upload.ts": {
-      "maxDuration": 60,
-      "memory": 1024
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    }
-  ]
+  "buildCommand": "npm run build"
 }
