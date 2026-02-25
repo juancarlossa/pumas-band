@@ -45,9 +45,11 @@ export const POST: APIRoute = async ({ request }) => {
             });
         }
 
+        // Convertir a buffer para upload directo (más eficiente que base64)
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
-        const base64File = `data:${file.type};base64,${buffer.toString('base64')}`;
+
+        console.log('Buffer size:', buffer.length, 'bytes');
 
         const uploadOptions = {
             folder: 'pumas-band',
@@ -58,7 +60,17 @@ export const POST: APIRoute = async ({ request }) => {
         console.log('Upload options:', uploadOptions);
         console.log('Iniciando upload a Cloudinary...');
 
-        const result = await cloudinary.uploader.upload(base64File, uploadOptions);
+        // Upload usando stream en lugar de base64 para evitar límite de Vercel
+        const result = await new Promise<any>((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+                uploadOptions,
+                (error, result) => {
+                    if (error) reject(error);
+                    else resolve(result);
+                }
+            );
+            uploadStream.end(buffer);
+        });
 
         console.log('Upload exitoso:', result.secure_url);
 
