@@ -47,24 +47,64 @@ export default function EditableImageWithButton({
         setIsUploading(true);
 
         try {
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('key', mediaKey);
-            formData.append('type', 'image');
-            formData.append('alt_text', altText);
-
-            const response = await fetch('/api/media/upload', {
+            // 1. Obtener signature del servidor
+            const signatureResponse = await fetch('/api/media/signature', {
                 method: 'POST',
-                body: formData,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    folder: 'pumas-band',
+                    public_id: mediaKey.replace(/\./g, '_'),
+                }),
             });
 
-            const data = await response.json();
-
-            if (!response.ok) {
-                console.error('Error del servidor:', data);
-                throw new Error(data.details || data.error || 'Error al subir la imagen');
+            if (!signatureResponse.ok) {
+                throw new Error('Error al obtener signature');
             }
-            setImageUrl(data.url);
+
+            const { signature, timestamp, cloudName, apiKey } = await signatureResponse.json();
+
+            // 2. Subir directamente a Cloudinary
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('signature', signature);
+            formData.append('timestamp', timestamp.toString());
+            formData.append('api_key', apiKey);
+            formData.append('folder', 'pumas-band');
+            formData.append('public_id', mediaKey.replace(/\./g, '_'));
+
+            const uploadResponse = await fetch(
+                `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+                {
+                    method: 'POST',
+                    body: formData,
+                }
+            );
+
+            if (!uploadResponse.ok) {
+                const errorData = await uploadResponse.json();
+                console.error('Error de Cloudinary:', errorData);
+                throw new Error(errorData.error?.message || 'Error al subir a Cloudinary');
+            }
+
+            const cloudinaryResult = await uploadResponse.json();
+
+            // 3. Guardar en la base de datos
+            const dbResponse = await fetch('/api/media/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    key: mediaKey,
+                    url: cloudinaryResult.secure_url,
+                    type: 'image',
+                    alt_text: altText,
+                }),
+            });
+
+            if (!dbResponse.ok) {
+                throw new Error('Error al guardar en la base de datos');
+            }
+
+            setImageUrl(cloudinaryResult.secure_url);
             if (onAltChange) {
                 onAltChange(altText);
             }
