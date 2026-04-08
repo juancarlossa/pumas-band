@@ -99,7 +99,7 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                         src={photos[2].src}
                         alt={photos[2].alt}
                         className="absolute inset-0 w-full h-full object-cover 
-                        opacity-80 brightness-120 contrast-120 saturate-150 
+                        opacity-80 brightness-120 contrast-100 saturate-10 
                         group-hover:brightness-120 group-hover:contrast-100 group-hover:saturate-100 transition-all duration-300"
                     />
                     <div className="absolute inset-0 bg-linear-to-b
@@ -109,7 +109,7 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                     />
                 </>
             ),
-            className: "lg:col-start-2 lg:col-end-3 lg:row-start-4 lg:row-end-7 justify-end",
+            className: "lg:col-start-1 lg:col-end-3 lg:row-start-4 lg:row-end-7 justify-end",
         },
         {
             Icon: TicketIcon,
@@ -133,11 +133,12 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                 </>
             ),
             className: "lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-7 justify-end",
-        },
+        }
+        /*
         {
             Icon: Music,
             name: "",
-            description: texts['eventos.logo.description'] || "Tu banda de confianza",
+            description: "",
             fecha: "",
             lugar: "",
             href: "#",
@@ -164,6 +165,7 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
             ),
             className: "lg:col-start-1 lg:col-end-2 lg:row-start-5 lg:row-end-7",
         }
+            */
     ];
 
     return (
@@ -177,9 +179,11 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
 
             <BentoGrid className="flex flex-col lg:grid lg:grid-rows-6 h-full text-white">
                 {eventos.map((evento, idx) => {
+                    /*
                     const isLogo = idx === eventos.length - 1;
                     const isDescriptionOnly = idx === eventos.length - 2;
 
+                    
                     if (isDescriptionOnly) {
                         return (
                             <div
@@ -216,7 +220,7 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                             </NeonGradientCard>
                         );
                     }
-
+*/
                     return <BentoCard key={idx} {...evento} />;
                 })}
             </BentoGrid>

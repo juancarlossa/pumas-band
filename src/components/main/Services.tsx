@@ -51,7 +51,8 @@ export function Services({ texts = {}, media = {} }: ServicesProps) {
     return (
         <Section className="">
             <div className="container mx-auto px-4">
-                {/* Section Header */}
+                {/*
+               
                 <div className="text-center mb-8">
                     <Title
                         title={texts['services.title'] || "Contratación"}
@@ -59,7 +60,7 @@ export function Services({ texts = {}, media = {} }: ServicesProps) {
                     />
                 </div>
 
-                {/* Service Cards Grid */}
+                
                 <ServicesMagicBento
                     cards={servicePacks}
                     textAutoHide={true}
@@ -71,12 +72,12 @@ export function Services({ texts = {}, media = {} }: ServicesProps) {
                     enableMagnetism={true}
                     glowColor="251, 191, 36"
                 />
-
+*/}
                 {/* Call to Action Section */}
                 <div id="contact" className="bg-linear-to-br from-slate-900 via-gray-900 to-black rounded-3xl p-8 md:p-12 shadow-2xl border border-amber-500/20">
                     <div className="text-center mb-8">
                         <h3 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent mb-5">
-                            {texts['services.cta.title'] || "¿Listo para crear momentos mágicos?"}
+                            {texts['services.cta.title'] || "Contratación"}
                         </h3>
                         <div className="w-24 h-1 bg-linear-to-r from-amber-400 to-orange-500 rounded-full mx-auto mb-6"></div>
                         <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto">

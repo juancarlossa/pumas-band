@@ -69,10 +69,6 @@ export function NosotrosEditable({ texts = {}, media = {} }: NosotrosEditablePro
                                             tag="span"
                                         />
                                     </div>
-                                    <div className="mt-4 md:mt-6 flex justify-start">
-                                        <LogoSirfran />
-                                    </div>
-
                                 </div>
                                 <div className="relative z-10 shrink-0 w-full md:w-auto">
                                     <EditableImageWithButton

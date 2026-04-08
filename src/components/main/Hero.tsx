@@ -210,14 +210,6 @@ export function Hero({ texts = {}, media = {}, calendarEvents = [] }: HeroProps)
                         </svg>
                     </a>
                 </div>
-
-                {/* Calendario de disponibilidad */}
-                <div className="absolute bottom-8 left-8 hidden lg:block animate-fade-up animation-delay-400">
-                    <AvailabilityCalendar events={bandEvents} />
-                </div>
-            </div>
-            <div className="lg:hidden items-center justify-center pt-10 pb-10 flex animate-fade-up animation-delay-400">
-                <AvailabilityCalendar events={bandEvents} />
             </div>
         </section>
     );

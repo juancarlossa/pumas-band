@@ -60,9 +60,6 @@ export function Nosotros({ texts = {}, media = {} }: NosotrosProps) {
                                             </span>
                                         ))}
                                     </div>
-                                    <div className="mt-4 md:mt-6 flex lg:justify-start justify-center">
-                                        <LogoSirfran />
-                                    </div>
 
                                 </div>
                                 {media['nosotros.image']?.url && (
