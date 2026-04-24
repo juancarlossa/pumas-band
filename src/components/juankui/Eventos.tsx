@@ -92,7 +92,7 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
             fecha: texts['evento3.fecha'] || "Disponible",
             lugar: texts['evento3.lugar'] || "Tu Evento",
             href: "#contact",
-            cta: "Consultar",
+            cta: "Reservar",
             background: (
                 <>
                     <img
@@ -117,7 +117,7 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
             fecha: texts['evento4.fecha'] || "22 Febrero 2025",
             lugar: texts['evento4.lugar'] || "Teatro Principal",
             href: "#contact",
-            cta: "Participar",
+            cta: "Reservar",
             background: (
                 <>
                     <img
