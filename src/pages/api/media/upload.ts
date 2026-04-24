@@ -52,18 +52,18 @@ export const POST: APIRoute = async ({ request }) => {
 
         console.log('Buffer size:', buffer.length, 'bytes');
 
-        const isVideo = file.type.startsWith('video/');
+        // resource_type 'auto' deja que Cloudinary detecte WebM y otros formatos correctamente
         const uploadOptions = {
             folder: 'pumas-band',
-            resource_type: isVideo ? 'video' as const : 'image' as const,
+            resource_type: 'auto' as const,
             public_id: mediaKey.replace(/\./g, '_'),
         };
 
         console.log('Upload options:', uploadOptions);
-        console.log('Iniciando upload a Cloudinary...');
+        console.log('File MIME type:', file.type);
+        console.log('Iniciando upload a Cloudinary via stream...');
 
-        // Upload usando stream en lugar de base64 para evitar límite de Vercel
-        /*
+        // Upload usando stream para evitar el límite de Vercel y problemas con WebM en base64
         const result = await new Promise<any>((resolve, reject) => {
             const uploadStream = cloudinary.uploader.upload_stream(
                 uploadOptions,
@@ -74,14 +74,6 @@ export const POST: APIRoute = async ({ request }) => {
             );
             uploadStream.end(buffer);
         });
-*/
-        const result = await cloudinary.uploader.upload(
-            `data:${file.type};base64,${buffer.toString('base64')}`,
-            {
-                folder: 'pumas-band',
-                resource_type: isVideo ? 'video' : 'image',
-            }
-        );
         console.log('Upload exitoso:', result.secure_url);
 
         // Guardar en la base de datos con alt_text
