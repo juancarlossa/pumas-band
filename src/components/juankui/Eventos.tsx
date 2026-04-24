@@ -48,12 +48,12 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                         alt={photos[0].alt}
                         className="absolute inset-0 w-full h-full object-cover 
                          
-                        group-hover:brightness-100 group-hover:contrast-100 group-hover:saturate-80 
+                        
                         transition-all duration-300"
                     />
                     <div className="absolute inset-0 bg-linear-to-b
                      from-black/0 via-black/30 to-black/80 
-                     group-hover:from-black/0 group-hover:via-black/60 group-hover:to-black transition duration-300"
+                     group-hover:from-black/0 group-hover:via-black/30 group-hover:to-black transition duration-300"
                     />
                 </>
             ),
@@ -74,12 +74,12 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                         alt={photos[1].alt}
                         className="absolute inset-0 w-full h-full object-cover 
                         
-                         group-hover:contrast-100 group-hover:saturate-100 
+                          
                         transition-all duration-300"
                     />
                     <div className="absolute inset-0 bg-linear-to-b
-                     from-black/0 via-black/30 to-black/80
-                     group-hover:from-black/0 group-hover:via-black/60 group-hover:to-black transition duration-300"
+                     from-black/0 via-black/30 to-black/80 
+                     group-hover:from-black/0 group-hover:via-black/30 group-hover:to-black transition duration-300"
                     />
                 </>
             ),
@@ -100,12 +100,11 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                         alt={photos[2].alt}
                         className="absolute inset-0 w-full h-full object-cover 
                          
-                        group-hover:brightness-120 group-hover:contrast-100 group-hover:saturate-100 transition-all duration-300"
+                        transition duration-300"
                     />
                     <div className="absolute inset-0 bg-linear-to-b
                      from-black/0 via-black/30 to-black/80 
-                     group-hover:from-black/0 group-hover:via-black/60 group-hover:to-black 
-                     transition duration-300"
+                     group-hover:from-black/0 group-hover:via-black/30 group-hover:to-black transition duration-300"
                     />
                 </>
             ),
@@ -124,7 +123,9 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                     <img
                         src={photos[3].src}
                         alt={photos[3].alt}
-                        className="absolute inset-0 w-full h-full object-cover group-hover:brightness-100 group-hover:contrast-100 group-hover:saturate-100 transition-all duration-300"
+                        className="absolute inset-0 w-full h-full object-cover 
+                        
+                        transition duration-300"
                     />
                     <div className="absolute inset-0 bg-linear-to-b
                      from-black/0 via-black/30 to-black/80 
