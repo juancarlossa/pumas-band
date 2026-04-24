@@ -39,7 +39,7 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
             description: texts['evento1.description'] || "Una noche épica de rock en el festival más grande de la ciudad. Ven a disfrutar de nuestros mejores hits.",
             fecha: texts['evento1.fecha'] || "15 Diciembre 2024",
             lugar: texts['evento1.lugar'] || "Estadio Municipal",
-            href: "/contact",
+            href: "#contact",
             cta: "Reservar",
             background: (
                 <>
@@ -47,13 +47,13 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                         src={photos[0].src}
                         alt={photos[0].alt}
                         className="absolute inset-0 w-full h-full object-cover 
-                        opacity-100 brightness-75 contrast-100 saturate-100 
+                         
                         group-hover:brightness-100 group-hover:contrast-100 group-hover:saturate-80 
                         transition-all duration-300"
                     />
                     <div className="absolute inset-0 bg-linear-to-b
-                     from-black/10 via-black/40 to-black/80 
-                     group-hover:from-black/0 group-hover:via-black/60 group-hover:to-black transition-all duration-300"
+                     from-black/0 via-black/30 to-black/80 
+                     group-hover:from-black/0 group-hover:via-black/60 group-hover:to-black transition duration-300"
                     />
                 </>
             ),
@@ -65,7 +65,7 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
             description: texts['evento2.description'] || "Una experiencia íntima con versiones acústicas de nuestras canciones favoritas.",
             fecha: texts['evento2.fecha'] || "8 Enero 2025",
             lugar: texts['evento2.lugar'] || "Café Central",
-            href: "/contact",
+            href: "#contact",
             cta: "Reservar",
             background: (
                 <>
@@ -73,13 +73,13 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                         src={photos[1].src}
                         alt={photos[1].alt}
                         className="absolute inset-0 w-full h-full object-cover 
-                        opacity-80  contrast-100  
+                        
                          group-hover:contrast-100 group-hover:saturate-100 
                         transition-all duration-300"
                     />
                     <div className="absolute inset-0 bg-linear-to-b
-                     from-black/0 via-black/30 to-black 
-                     group-hover:from-black/0 group-hover:via-black/60 group-hover:to-black transition-all duration-300"
+                     from-black/0 via-black/30 to-black/80
+                     group-hover:from-black/0 group-hover:via-black/60 group-hover:to-black transition duration-300"
                     />
                 </>
             ),
@@ -91,7 +91,7 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
             description: texts['evento3.description'] || "Eventos privados y celebraciones especiales. Música personalizada para tu ocasión.",
             fecha: texts['evento3.fecha'] || "Disponible",
             lugar: texts['evento3.lugar'] || "Tu Evento",
-            href: "/contact",
+            href: "#contact",
             cta: "Consultar",
             background: (
                 <>
@@ -99,13 +99,13 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
                         src={photos[2].src}
                         alt={photos[2].alt}
                         className="absolute inset-0 w-full h-full object-cover 
-                        opacity-80 brightness-120 contrast-100 saturate-10 
+                         
                         group-hover:brightness-120 group-hover:contrast-100 group-hover:saturate-100 transition-all duration-300"
                     />
                     <div className="absolute inset-0 bg-linear-to-b
-                     from-black/10 via-black/60 to-black/80 
+                     from-black/0 via-black/30 to-black/80 
                      group-hover:from-black/0 group-hover:via-black/60 group-hover:to-black 
-                     transition-all duration-300"
+                     transition duration-300"
                     />
                 </>
             ),
@@ -117,18 +117,18 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
             description: texts['evento4.description'] || "Música con causa. Únete a nosotros en este evento solidario.",
             fecha: texts['evento4.fecha'] || "22 Febrero 2025",
             lugar: texts['evento4.lugar'] || "Teatro Principal",
-            href: "/contact",
+            href: "#contact",
             cta: "Participar",
             background: (
                 <>
                     <img
                         src={photos[3].src}
                         alt={photos[3].alt}
-                        className="absolute inset-0 w-full h-full object-cover opacity-80 brightness-75 contrast-170 saturate-0 group-hover:brightness-100 group-hover:contrast-100 group-hover:saturate-100 transition-all duration-300"
+                        className="absolute inset-0 w-full h-full object-cover group-hover:brightness-100 group-hover:contrast-100 group-hover:saturate-100 transition-all duration-300"
                     />
                     <div className="absolute inset-0 bg-linear-to-b
-                     from-black/20 via-black/60 to-black/80 
-                     group-hover:from-black/0 group-hover:via-black/30 group-hover:to-black transition-all duration-300"
+                     from-black/0 via-black/30 to-black/80 
+                     group-hover:from-black/0 group-hover:via-black/30 group-hover:to-black transition duration-300"
                     />
                 </>
             ),
