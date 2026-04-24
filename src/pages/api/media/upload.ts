@@ -37,7 +37,8 @@ export const POST: APIRoute = async ({ request }) => {
         console.log('Media key:', mediaKey);
         console.log('Media type:', mediaType);
 
-        if (!file || !mediaKey || !mediaType) {
+        console.log('REAL MIME TYPE:', file.type);
+        if (!file || !mediaKey) {
             console.error('Faltan datos requeridos');
             return new Response(JSON.stringify({ error: 'Faltan datos requeridos' }), {
                 status: 400,
@@ -51,9 +52,10 @@ export const POST: APIRoute = async ({ request }) => {
 
         console.log('Buffer size:', buffer.length, 'bytes');
 
+        const isVideo = file.type.startsWith('video/');
         const uploadOptions = {
             folder: 'pumas-band',
-            resource_type: mediaType === 'video' ? 'video' as const : 'image' as const,
+            resource_type: isVideo ? 'video' as const : 'image' as const,
             public_id: mediaKey.replace(/\./g, '_'),
         };
 
@@ -61,6 +63,7 @@ export const POST: APIRoute = async ({ request }) => {
         console.log('Iniciando upload a Cloudinary...');
 
         // Upload usando stream en lugar de base64 para evitar límite de Vercel
+        /*
         const result = await new Promise<any>((resolve, reject) => {
             const uploadStream = cloudinary.uploader.upload_stream(
                 uploadOptions,
@@ -71,7 +74,14 @@ export const POST: APIRoute = async ({ request }) => {
             );
             uploadStream.end(buffer);
         });
-
+*/
+        const result = await cloudinary.uploader.upload(
+            `data:${file.type};base64,${buffer.toString('base64')}`,
+            {
+                folder: 'pumas-band',
+                resource_type: isVideo ? 'video' : 'image',
+            }
+        );
         console.log('Upload exitoso:', result.secure_url);
 
         // Guardar en la base de datos con alt_text

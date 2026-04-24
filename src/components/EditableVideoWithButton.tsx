@@ -43,7 +43,7 @@ export default function EditableVideoWithButton({
             const formData = new FormData();
             formData.append('file', file);
             formData.append('key', mediaKey);
-            formData.append('type', 'video');
+            formData.append('type', file.type);
 
             const response = await fetch('/api/media/upload', {
                 method: 'POST',
