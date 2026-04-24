@@ -159,7 +159,7 @@ export function EventosEditable({ texts = {}, media = {} }: EventosEditableProps
             background: (
                 <>
                     <img
-                        src="/logo.png"
+                        src="/logo.webp"
                         alt="Puma's Band Logo"
                         className="w-32 h-32 object-contain "
                     />

@@ -53,7 +53,7 @@ export function HeaderEditable({ texts = {} }: HeaderEditableProps) {
                     <div className="shrink-0 flex items-center">
                         <a href="#hero" className="flex items-center gap-3">
                             <img
-                                src="/logo.png"
+                                src="/logo.webp"
                                 alt="Puma's Band Logo"
                                 className="h-12 w-12 md:h-14 md:w-14 object-contain"
                             />

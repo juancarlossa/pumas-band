@@ -158,7 +158,7 @@ export function Eventos({ texts = {}, media = {} }: EventosProps) {
             background: (
                 <>
                     <img
-                        src="/logo.png"
+                        src="/logo.webp"
                         alt="Puma's Band Logo"
                         className="size-28 object-contain"
                     />
